@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>会员注册_1元云购</title>
+    <meta name="Description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" type="text/css" href="css/newcss/sslComm.css" />
+    <link rel="stylesheet" type="text/css" href="css/newcss/layout.css" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+     <script src="js/sweetalert.min.js"></script>  
+	<link rel="stylesheet" href="css/newcss/sweetalert.css">
+</head>
+<body>
+    <div class="wrapper">
+        <input name="hidRegisterForward" type="hidden" id="hidRegisterForward" value="" />
+        <div class="g-logo-top">
+            <a href="" class="transparent-png fl">
+                <img src="" alt="" />
+            </a>
+            <span class="fr">已有账号？<a id="hylinkLoginPage" class="blue" href="newlogin.html?">立即登录</a></span>
+        </div>
+
+        <div class="g-contentCon clrfix">
+
+            <div class="m-main clrfix">
+                <h2 class="gray3">新用户注册</h2>
+                <div class="register-form-con clrfix">
+                    <ul>
+                        <li>
+                        	手机号/邮箱地址
+                            <input id="txtloginName" type="text" maxlength="100"/>
+                            <b class="passport-icon user-name transparent-png"></b>
+                            <span class="orange" style="display: none;"></span>
+                            
+                        </li>
+                        <li>
+                        	设置登录密码
+                            <input id="txtPwd" type="password" maxlength="20"/>
+                            <b class="passport-icon login-password transparent-png"></b>
+                            <span class="orange" style="display: none;"></span>
+                          
+                            <span id="pwdStrength" style="display: none;"></span>
+
+                        </li>
+                        <li>
+                        	确认密码
+                            <input id="txtConPwd" type="password" maxlength="20"/>
+                            <b class="passport-icon login-password transparent-png"></b>
+                            <span class="orange" style="display: none;"></span>
+                        
+                        </li>
+                        
+                    </ul>
+                    <ul class="j-tips-wrap" id="j-tips-wrap"></ul>
+                </div>
+                <div class="link-con clrfix">
+                    <a id="btnAgreeBtn" href="javascript:;" class="z-agreeBtn">注册</a>
+                </div>
+            </div>
+        </div>
+
+       <!-- 底部版权 -->
+        <div class="g-copyrightCon clrfix">
+           <div class="g-links">
+               <a target="_blank" href="#" title="首页">首页</a><s></s>
+               <a target="_blank" href="#" title="关于云购">关于云购</a><s></s>
+               <a target="_blank" href="#" title="关于网站">关于网站</a><s></s>
+           </div>
+           <div class="g-copyright">
+               Copyright &copy; 2017, 徐国伟的毕设(╯‵□′)╯︵┻━┻
+           </div>
+       </div>
+</body>
+
+ 	   <script> 
+           $("#btnAgreeBtn").click(function(){
+           		var userName = $("#txtloginName").val();
+           		var Password = $("#txtPwd").val();
+           		var conpassword = $("#txtConPwd").val();
+           
+           /*注册需满足的条件*/
+           		
+           		if(Password!=conpassword){
+           			sweetAlert("请确认两次密码输入一致！");
+           			return;
+           		}
+           		
+           		var param = {
+           			username : userName,
+           			userpassword :Password
+           		};
+           		
+           		sweetAlert("post start");
+           		$.ajax({
+           			type:"POST",
+           			url:"${pageContext.request.contextPath}/userregist.action",
+           			data:param,
+           			dataType:"json",
+           			success:function(json){
+           				if(json.output.flag){
+           				swal({
+						title: "注册成功！", 
+						text: "是否前去登录？", 
+						type: "success", 
+						showCancelButton: true,
+						closeOnConfirm: false,
+						confirmButtonText: "登录",
+						confirmButtonColor: "#f60"
+					}, function() {
+						window.location.href="./newlogin.html";
+					});
+						}else{
+					swal("注册失败!", "请稍后再试！", "error");
+					}
+           			},
+           			error:function(json){
+           				alert("json="+json);
+           				return false;
+           			}
+           		});           		
+           })        
+       </script> 
+</html>
