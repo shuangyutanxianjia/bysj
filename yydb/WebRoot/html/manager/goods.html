@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/newcss/layout.css" />
+		<style type="text/css">
+			.title {
+				text-align: center;
+				margin: 20px;
+				font-size: 24px;
+			}
+			
+			.imgbutton {
+				float: left;
+				width: 136px;
+				background: #2af;
+				color: #fff;
+				font-size: 16px;
+				margin: 0 10px 0 90px;
+				display: inline;
+			}
+			
+			.submitbutton {
+				display: block;
+				width: 340px;
+				margin-left: 350px;
+				height: 42px;
+				line-height: 42px;
+				font-size: 16px;
+				color: #fff;
+				background: #2af;
+				border-radius: 2px;
+				text-align: center;
+				margin-bottom: 13px;
+			}
+			
+			.myformbox {
+				display: inline;
+				width: 100%;
+				text-align: center !important;
+				margin-top: 20px;
+				border-radius: 10px;
+				margin: 30px 0px;
+				height: 10px;
+			}
+			
+			.myfont {
+				float: left;
+				margin-left: 50px;
+				margin-right: 5px;
+			}
+			
+			.myinput {
+				float: left;
+				width: 120px;
+				height: 30px;
+			}
+			
+			.myselect {
+				width: 120px;
+				height: 30px;
+				float: left;
+				padding: 0px 3px;
+			}
+			
+			.textbox {
+				margin: auto;
+				width: 100%;
+				height: 150px;
+			}
+			
+			.mytextarea {
+				float: left;
+				width: 400px;
+			}
+			
+			.picpicker {
+				width: 32%;
+				float: left;
+				padding: 10px 5px;
+				text-align: center;
+				border: 1px solid gainsboro;
+			}
+			
+			.picpicker button {
+				height: 26px;
+				width: 36px;
+				padding: 0px;
+			}
+			
+			.picpicker .imgs {
+				min-height: 150px;
+				width: 100%;
+				padding: 0px;
+			}
+			
+			.imgs-item0 {
+				position: absolute;
+			}
+			
+			.upimgs0 {
+				width: 100px;
+				position: absolute;
+				left: 80px;
+				top: 0px;
+			}
+			
+			.imgs-item0 button {
+				position: absolute;
+				left: 160px;
+				top: 5px;
+				padding: 0px;
+				width: 16px;
+				height: 16px;
+			}
+			
+			.imgs-item1 {
+				position: absolute;
+			}
+			
+			.upimgs1 {
+				width: 60px;
+				position: absolute;
+				left: 33px;
+				top: 0px;
+			}
+			
+			.imgs-item1 button {
+				position: absolute;
+				left: 75px;
+				top: 3px;
+				padding: 0px;
+				width: 14px;
+				height: 14px;
+				font-size: 10px;
+			}
+			
+			.imgs-item2 {
+				position: absolute;
+			}
+			
+			.upimgs2 {
+				width: 60px;
+				position: absolute;
+				left: 96px;
+				top: 0px;
+			}
+			
+			.imgs-item2 button {
+				position: absolute;
+				left: 138px;
+				top: 3px;
+				padding: 0px;
+				width: 14px;
+				height: 14px;
+				font-size: 10px;
+			}
+			
+			.imgs-item3 {
+				position: absolute;
+			}
+			
+			.upimgs3 {
+				width: 60px;
+				position: absolute;
+				left: 159px;
+				top: 0px;
+			}
+			
+			.imgs-item3 button {
+				position: absolute;
+				left: 201px;
+				top: 3px;
+				padding: 0px;
+				width: 14px;
+				height: 14px;
+				font-size: 10px;
+			}
+			
+			.imgs-item4 {
+				position: absolute;
+			}
+			
+			.upimgs4 {
+				width: 212px;
+				height: 117px;
+				position: absolute;
+				left: 20px;
+				top: 0px;
+			}
+			
+			.imgs-item4 button {
+				position: absolute;
+				left: 212px;
+				top: 5px;
+				padding: 0px;
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="title">添加商品</div>
+		<div style="margin-left: 10px; font-size: 20px;">基本信息</div>
+		<div>
+			<div class="myformbox">
+				<div class="myinputrow">
+					<div class="myfont">商品名:</div>
+					<input id="goodstitle" class="myinput" />
+					<div class="myfont">类&emsp;别:</div>
+					<select id="sid" class="myselect">
+					</select>
+				</div>
+				<div class="textbox" style="float: none;margin-top: 10px;">
+					<div class="myfont">描&emsp;述:</div>
+					<textarea id="detail" class="mytextarea" cols="20" rows="5"></textarea>
+				</div>
+			</div>
+
+		</div>
+		<div style="margin-left: 10px; font-size: 20px;">商品图片</div>
+		<div style="height:200px;margin-top: 10px;padding: 5px 10px;">
+			<div class="picpicker">
+				<input type="file" id="fileElem1" accept="image/*" style="display:none" onchange="handleImgs1(this)" />
+				<div class="imgs">
+					<div class="imgs-item0">
+						<!--<img class="upimgs0" src="" onclick="javascript:window.open(this.src);" />
+						<button>X</button>-->
+						请选择主页显示图片
+					</div>
+				</div>
+				<a id="fileSelect1" class="imgbutton">选择</a>
+			</div>
+			<div class="picpicker">
+				<input type="file" id="fileElem2" multiple accept="image/*" style="display:none" onchange="handleImgs2(this)">
+				<div class="imgs">
+					<div id="imgs2">
+						<div class="texttp">请选择用于商品页展示的图片</div>
+					</div>
+				</div>
+				<a id="fileSelect2" class="imgbutton">选择</a>
+			</div>
+			<div class="picpicker">
+				<input type="file" id="fileElem3" accept="image/*" style="display:none" onchange="handleImgs3(this)">
+				<div class="imgs">
+					<div class="imgs-item4">
+						请选择商品详情页图片
+					</div>
+				</div>
+				<a id="fileSelect3" class="imgbutton">选择</a>
+			</div>
+		</div>
+		<div class="mui-button-row" style="margin-top: 10px">
+			<a id="submit" class="submitbutton">提交</a>
+		</div>
+		<script type="text/javascript" src="../jquery/JQUERY/jquery.js"></script>
+
+		<script>
+			var FileReader;
+			$(function() {
+				FileReader = window.FileReader;
+				//初始化获取类型
+				$.ajax({
+					type: "POST",
+					url: "../../searchgoodType.action",
+					data: "",
+					dataType: "json",
+					success: function(json) {
+						var data = json.output.goodtypes;
+						var html = [];
+						html.push('<option value="-1" selected>---请选择---</option>');
+						var i = 0;
+						m = data.length;
+						for(; i < m; i++) {
+							html.push('<option value="' + data[i].typeId + '">' + data[i].typeName + '</option>');
+						}
+						$("#sid").html(html);
+					},
+					error: function(json) {
+						alert("failed");
+					}
+				});
+
+				//图片上传区
+				$("#fileSelect1").click(function() {
+					$("#fileElem1").click();
+				})
+
+				$("#fileSelect2").click(function() {
+					$("#fileElem2").click();
+				})
+
+				$("#fileSelect3").click(function() {
+					$("#fileElem3").click();
+				})
+
+
+				$("#submit").click(function() {
+					var goodstitle = $("#goodstitle").val();
+					var catid = $("#sid").find("option:selected").val();
+					var detail = $("#detail").val();
+					var goodsicondefault = $(".upimgs0").attr("src").replace("data:image/jpeg;base64,", "");
+					var goodsicon1 = $(".upimgs1").attr("src").replace("data:image/jpeg;base64,", "");
+					var goodsicon2 = $(".upimgs2").attr("src").replace("data:image/jpeg;base64,", "");
+					var goodsicon3 = $(".upimgs3").attr("src").replace("data:image/jpeg;base64,", "");
+					var goodsdetails = $(".upimgs4").attr("src").replace("data:image/jpeg;base64,", "");
+
+					var formdata = new FormData();
+					
+					formdata.append("goodsTitle", goodstitle);
+					formdata.append("goodsTypeId", catid);
+					formdata.append("details", detail);
+					formdata.append("Icon1", convertBase64UrlToBlob(goodsicondefault));
+					formdata.append("Icon2", convertBase64UrlToBlob(goodsicon1));
+					formdata.append("Icon3", convertBase64UrlToBlob(goodsicon2));
+					formdata.append("Icon4", convertBase64UrlToBlob(goodsicon3));
+					formdata.append("Icon5", convertBase64UrlToBlob(goodsdetails));
+							
+//					var param ={
+//						goodsTitle: goodstitle,
+//						goodsTypeId: catid,
+//						details: detail,
+//						Icon1: convertBase64UrlToBlob(goodsicondefault),
+//						Icon2: convertBase64UrlToBlob(goodsicon1),
+//						Icon3: convertBase64UrlToBlob(goodsicon2),
+//						Icon4: convertBase64UrlToBlob(goodsicon3),
+//						Icon5: convertBase64UrlToBlob(goodsdetails)
+//					} 
+					$.ajax({
+           				type:"POST",
+           				url:"../../addgoods.action",
+           				data:formdata,
+           				dataType:"json",
+           				cache: false,  
+					    processData: false,  
+					    contentType: false,
+           				success:function(json){
+           				
+					
+           				},
+           				error:function(json){
+           				alert("failed");
+           			}
+           		});       
+				})
+
+			});
+
+			function handleImgs1(e) {
+				if(FileReader) { //chrome浏览器处理
+					var file = e.files[0];
+					if(!$(".upimgs0").length) {
+						$(".imgs-item0").html('<img class="upimgs0" src="" onclick="javascript:window.open(this.src);" />' +
+							'<button id="imgs-item0-clear">X</button>');
+					}
+					var reader = new FileReader();
+					reader.onload = function(a) {
+						$(".upimgs0").attr("src", a.target.result); //这里是把图片转成64位数据存入<img>中的src里
+						bindClearBtn();
+					};
+					reader.readAsDataURL(file);
+				}
+			}
+
+			function handleImgs2(e) {
+				if(FileReader) { //chrome浏览器处理
+					var s = [0, 0, 0]; //图片位置
+					for(var i = 0; i < 3; i++) {
+						var file = e.files[i];
+						if(file != undefined) {
+							var flag = 0; //
+							if($(".texttp").length == 1) { //有字
+								flag = 1;
+								$("#imgs2").html('<div class="imgs-item1"><img class="upimgs1" src="" onclick="javascript:window.open(this.src);" />' +
+									'<button id="imgs-item1-clear">X</button></div>');
+								s[0] = 1;
+							} else {
+								for(j = 1; j <= 3; j++) {
+									if($(".imgs-item" + j).length == 0) {
+										$("#imgs2").append('<div class="imgs-item' + j + '"><img class="upimgs' + j + '" src="" onclick="javascript:window.open(this.src);" />' +
+											'<button id="imgs-item' + j + '-clear">X</button></div>');
+										flag = j;
+										s[j - 1] = 1;
+										break;
+									}
+								}
+							}
+							if(flag != 0) {
+								var reader = new FileReader();
+								reader.onload = function(a) {
+									for(var n = 0; n < 3; n++) {
+										if(s[n] == 1) {
+											$(".upimgs" + (n + 1)).attr("src", a.target.result); //这里是把图片转成64位数据存入<img>中的src里
+											bindClearBtn();
+											s[n] = 0;
+											break;
+										}
+									}
+								};
+								reader.readAsDataURL(file);
+							}
+						}
+					}
+				}
+			}
+
+			function handleImgs3(e) {
+				if(FileReader) { //chrome浏览器处理
+					var file = e.files[0];
+					if(!$(".upimgs4").length) {
+						$(".imgs-item4").html('<img class="upimgs4" src="" onclick="javascript:window.open(this.src);" />' +
+							'<button id="imgs-item4-clear">X</button>');
+
+					}
+					var reader = new FileReader();
+					reader.onload = function(a) {
+						$(".upimgs4").attr("src", a.target.result); //这里是把图片转成64位数据存入<img>中的src里
+						bindClearBtn();
+					};
+					reader.readAsDataURL(file);
+				}
+			}
+
+			function bindClearBtn() {
+				$("button").off("click").on("click", function(e) {
+					if($(e.target).attr("id") == "imgs-item0-clear") {
+						$(".imgs-item0").html("请选择主页显示图片");
+					}
+					if($(e.target).attr("id") == "imgs-item1-clear") {
+						$(".imgs-item1").remove();
+						var isnone = $("#imgs2").html().trim();
+						if(!isnone) {
+							$("#imgs2").html('<div class="texttp">请选择用于商品页展示的图片（最多三张）</div>');
+						}
+					}
+					if($(e.target).attr("id") == "imgs-item2-clear") {
+						$(".imgs-item2").remove();
+						var isnone = $("#imgs2").html().trim();
+						if(!isnone) {
+							$("#imgs2").html('<div class="texttp">请选择用于商品页展示的图片（最多三张）</div>');
+						}
+					}
+					if($(e.target).attr("id") == "imgs-item3-clear") {
+						$(".imgs-item3").remove();
+						var isnone = $("#imgs2").html().trim();
+						if(!isnone) {
+							$("#imgs2").html('<div class="texttp">请选择用于商品页展示的图片（最多三张）</div>');
+						}
+					}
+					if($(e.target).attr("id") == "imgs-item4-clear") {
+						$(".imgs-item4").html("请选择商品详情页图片");
+					}
+				});
+			}
+				/**  
+				 * 将以base64的图片url数据转换为Blob  
+				 * @param urlData  
+				 *            用url方式表示的base64图片数据  
+				 */
+				function convertBase64UrlToBlob(urlData) {
+					urlData = urlData.replace("data:image/png;base64,", "");
+					urlData = urlData.replace("data:image/jpeg;base64,", "");
+					var bytes = window.atob(urlData.replace("data:image/jpeg;base64,", "")); //去掉url的头，并转换为byte  
+					//处理异常,将ascii码小于0的转换为大于0  
+					var ab = new ArrayBuffer(bytes.length);
+					var ia = new Uint8Array(ab);
+					for(var i = 0; i < bytes.length; i++) {
+						ia[i] = bytes.charCodeAt(i);
+					}
+
+					return new Blob([ab], {
+						type: 'image/png'
+					});
+				}
+		</script>
+	</body>
+
+</html>

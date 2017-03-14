@@ -2,23 +2,42 @@ package domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Issue entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name="issue")
 public class Issue implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+    @Column(name = "issueId", insertable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer issueId;
+	@Column(name = "goodId")
 	private Integer goodId;
+	@Column(name = "goodIssue")
 	private Integer goodIssue;
+	@Column(name = "totalnum")
 	private Integer totalnum;
+	@Column(name = "soldnum")
 	private Integer soldnum;
+	@Column(name = "isdraw")
 	private Integer isdraw;
+	@Column(name = "createDate")
 	private Date createDate;
+	@Column(name = "doneDate")
 	private Date doneDate;
+	@Column(name = "ext1")
 	private String ext1;
+	@Column(name = "ext2")
 	private String ext2;
 
 	// Constructors

@@ -7,7 +7,8 @@
     <meta name="Description" content="" />
     <link rel="stylesheet" type="text/css" href="css/newcss/sslComm.css" />
     <link rel="stylesheet" type="text/css" href="css/newcss/layout.css" />
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script src="jquery/JQUERY/jquery.js"></script>
+    <script src="jquery/JQUERY/jquery.cookie.js"></script> 
     
 </head>
 <body>
@@ -93,6 +94,9 @@
            			dataType:"json",
            			success:function(json){
            				if(json.output.flag){
+           					
+           					$.cookie("username", json.output.users[0].userName, {path: '/'}); 
+           					$.cookie("userIcon",json.output.users[0].userIcon,{path:'/'});          					
 							window.location.href="./newindex.html";
 						}else{
 							alert("密码有误？");

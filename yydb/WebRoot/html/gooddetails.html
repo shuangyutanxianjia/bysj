@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head id="htmlHead">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title></title>
+
+		<link rel="stylesheet" type="text/css" href="css/newcss/header.css" />
+		<!--[if IE 6]>
+               <script type="text/javascript" src="http://skin.1yyg.net/js/iepng.js"></script> 
+               <script type="text/javascript">
+                 EvPNG.fix('.search a.seaIcon i,.m-menu-all h3 em,.nav-cart-btn i.f-cart-icon,a.u-cart s,.u-mui-tab a.u-menus s,.u-mui-tab li.f-cart a.u-menus i,.u-mui-tab li.f-both-top a.u-menus,.u-mui-tab li.f-both-bottom a.u-menus,.i-ctrl a s,.g-list li cite,.f-list-sorts li.m-value s,.nav-main li.f-nav-thanks span,.u-float-list a i,.cartEmpty i,.transparent-png');
+               </script>
+             <![endif]-->
+		<link rel="stylesheet" type="text/css" href="css/details/GoodsDetail.css" />
+		<script language="javascript" type="text/javascript" src="jquery/JQUERY/jquery.js"></script>
+		<script language="javascript" type="text/javascript" src="common/user.js"></script>
+		<style>
+			.slidesjs-navigation {
+				display: none !important;
+			}
+		</style>
+	</head>
+
+	<body id="loadingPicBlock" rf="2">
+
+		<!--顶部-->
+		<div class="g-toolbar clrfix">
+			<div class="w1190">
+				<ul class="fl">
+					<li id="liIndex" class="f-home" style="display:none;">
+						<div class="u-menu-hd">
+							<a href="http://www.1yyg.com/" title="1元云购首页" class="orange">1元云购首页</a>
+						</div>
+					</li>
+					<li class="f-gap" style="display:none;"><s></s></li>
+					<li id="liCollect">
+						<div class="u-menu-hd">
+							<a id="btnTFavorite" href="javascript:;" title="收藏">收藏</a>
+						</div>
+					</li>
+					<li class="f-gap" style="display: none;"><s></s></li>
+					<li class="f-gap" style="display: none;"><s></s></li>
+				</ul>
+				<ul id="ulTopRight" class="fr">
+					<!-- 登录/注册 -->
+					<li class="login">
+						<div class="u-menu-hd u-menu-login">
+							<a href="#" title="xuguowei" class="blue">
+								<span class="f1">
+                        				<img id= "userIcon" /><s class="transparent-png"></s>
+                        			</span>
+
+							</a>
+
+							<a href="newlogin.html" title="退出">[退出]</a>
+						</div>
+					</li>
+
+					<li class="nologin">
+						<div class="u-menu-hd">
+							<a href="newlogin.html" title="登录">登录</a>
+						</div>
+					</li>
+					<li class="f-gap nologin"><s></s></li>
+
+					<li class="nologin">
+						<div class="u-menu-hd">
+							<a href="newregist.html" title="注册">注册</a>
+						</div>
+					</li>
+
+					<li class="f-gap nologin"><s></s></li>
+					<li id="liMember" class="u-arr-1yyg" style="display: none;">
+						<div class="u-menu-hd">
+							<a href="user/member.html" title="我的1元云购">我的1元云购</a>
+							<div class="f-top-arrow"><cite>◆</cite><b>◆</b></div>
+						</div>
+						<div class="u-select">
+							<span><a href="#" title="云购记录">云购记录</a></span>
+							<span><a href="#" title="获得的商品">获得的商品</a></span>
+							<span><a href="#" title="个人设置">个人设置</a></span>
+						</div>
+					</li>
+					<li class="f-gap" style="display: none;"><s></s></li>
+					<!-- 注册/登录结束 -->
+					<li id="liHome" style="display: none;">
+						<div class="u-menu-hd">
+							<a href="http://member.1yyg.com/" title="我的1元云购">我的1元云购</a>
+						</div>
+					</li>
+					<li class="f-gap" style="display: none;"><s></s></li>
+					<li id="liTopUMsg" class="u-arr-news" style="display: none;">
+						<div class="u-menu-hd">
+							<a href="http://member.1yyg.com/userMessage.do" title="消息">消息</a>
+							<h3 style="display: none;"></h3>
+							<div class="f-top-arrow"><cite>◆</cite><b>◆</b></div>
+						</div>
+						<div class="u-select">
+							<span><a href="http://member.1yyg.com/UserMessage.do" title="系统消息">系统消息</a></span>
+							<span><a href="http://member.1yyg.com/FriendsApply.do" title="好友请求">好友请求</a></span>
+							<span><a href="http://member.1yyg.com/ReplyCommentsMsg.do" title="好友请求">评论回复</a></span>
+							<span><a href="http://member.1yyg.com/UserPrivMsg.do" title="私信" class="f-msg">私信</a></span>
+						</div>
+					</li>
+					<li class="f-gap" style="display: none;"><s></s></li>
+					<li id="liMobile" class="u-arr">
+						<div class="u-menu-hd">
+							<a target="_blank" href="http://info.1yyg.com/app/mobile.html" title="手机云购">手机云购</a>
+							<i></i>
+						</div>
+						<li class="f-gap"><s></s></li>
+						<li>
+							<div class="u-menu-hd">
+								<a href="http://member.1yyg.com/UserRecharge.do" title="充值">充值</a>
+							</div>
+						</li>
+				</ul>
+			</div>
+		</div>
+		<!--头部-->
+		<div class="g-header">
+			<div class="w1190">
+				<div id="topLogoAd" class="logo_1yyg fl">
+					<a href="http://www.1yyg.com/" class="logo transparent-png"></a>
+				</div>
+				<div class="search_cart_wrap fr">
+					<div class="number">
+						<a href="#" target="_blank">
+							<ul id="ulHTotalBuy">
+								<li class="nobor gray6">累计参与</li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="nobor">,</li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="nobor">,</li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="nobor">,</li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="num"><cite><em>0</em></cite><i></i></li>
+								<li class="nobor gray6 u-secondary">人次<b><s></s></b></li>
+							</ul>
+						</a>
+					</div>
+					<div class="search">
+						<div class="form">
+							<input id="txtHSearch" type="text" value="输入“汽车”试试" />
+							<span>
+                         <a href="#" target="_blank" title="汽车">汽车</a>
+                         <a href="#" target="_blank" title="苹果">苹果</a>
+                         <a href="#" target="_blank" title="小米">小米</a>
+                     </span>
+						</div>
+						<a id="btnHSearch" href="javascript:;" class="seaIcon"><i></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--导航-->
+		<div class="g-nav">
+			<div class="w1190">
+				<div id="divGoodsSort" class="g-view-con m-menu fl">
+					<div class="m-menu-all">
+						<h3><a href="#">全部商品分类</a><em class="icons-sort"></em></h3>
+					</div>
+					<div id="divSortList" class="m-all-sort">
+						<!--menustart-->
+						<ul class='m-all-menu'>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n100.html' target='_blank' class='lvl1 none'>手机数码<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'><span class='lvl2'><a href='http://www.1yyg.com/list/n101.html' target='_blank' class='lvl2 hot'>手机<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n102.html' target='_blank' class='lvl2 none'>数码<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n103.html' target='_blank' class='lvl2 none'>影音<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n104.html' target='_blank' class='lvl2 none'>耳机<b class='icons-sort'></b></a></span></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n105.html' target='_blank' class='lvl1 none'>电脑办公<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'><span class='lvl2'><a href='http://www.1yyg.com/list/n106.html' target='_blank' class='lvl2 none'>平板电脑<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n107.html' target='_blank' class='lvl2 none'>笔记本<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n108.html' target='_blank' class='lvl2 none'>配件<b class='icons-sort'></b></a></span></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n109.html' target='_blank' class='lvl1 none'>家用电器<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'><span class='lvl2'><a href='http://www.1yyg.com/list/n110.html' target='_blank' class='lvl2 none'>大家电<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n111.html' target='_blank' class='lvl2 none'>空调<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n112.html' target='_blank' class='lvl2 none'>电视<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n113.html' target='_blank' class='lvl2 none'>厨房<b class='icons-sort'></b></a></span></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n114.html' target='_blank' class='lvl1 none'>钟表首饰<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'><span class='lvl2'><a href='http://www.1yyg.com/list/n115.html' target='_blank' class='lvl2 none'>珠宝<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n116.html' target='_blank' class='lvl2 none'>实物黄金<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n117.html' target='_blank' class='lvl2 none'>金银条<b class='icons-sort'></b></a></span></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n118.html' target='_blank' class='lvl1 none'>食品饮料<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'><span class='lvl2'><a href='http://www.1yyg.com/list/n119.html' target='_blank' class='lvl2 none'>美食<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n120.html' target='_blank' class='lvl2 none'>粮油<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n121.html' target='_blank' class='lvl2 none'>饮料<b class='icons-sort'></b></a></span><span class='lvl2'><a href='http://www.1yyg.com/list/n122.html' target='_blank' class='lvl2 none'>酒类<b class='icons-sort'></b></a></span></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n123.html' target='_blank' class='lvl1 none'>化妆个护<b class='icons-sort'></b></a></span><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n124.html' target='_blank' class='lvl1 none'>运动户外<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n125.html' target='_blank' class='lvl1 none'>家居家纺<b class='icons-sort'></b></a></span><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n126.html' target='_blank' class='lvl1 none'>礼品箱包<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n127.html' target='_blank' class='lvl1 none'>母婴<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n128.html' target='_blank' class='lvl1 none'>汽车<b class='icons-sort'></b></a></span><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n129.html' target='_blank' class='lvl1 none'>房子<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'></p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class='z-fg-line'>
+									<div class='z-margin-right'>
+										<p class='lvl1'><span class='lvl1'><i>/</i><a href='http://www.1yyg.com/list/n130.html' target='_blank' class='lvl1 none'>其他商品<b class='icons-sort'></b></a></span></p>
+										<p class='lvl2'></p>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<!--menuend-->
+					</div>
+				</div>
+				<div class="nav-main fl">
+					<ul>
+						<li class="f-nav-home">
+							<a href="newindex.html">首页</a>
+						</li>
+						<li class="f-nav-lottery">
+							<a href="lottery.html">最新揭晓</a>
+						</li>
+						<li class="f-nav-guide">
+							<a href="zhinan.html">新手指南</a>
+						</li>
+					</ul>
+				</div>
+				<div id="divHCart" class="nav-cart fr">
+					<div class="nav-cart-btn">
+						<a href="shoppingcar.html" target="_blank"><i class="f-cart-icon"></i>购物车<span id="spHCart"></span></a>
+					</div>
+					<div class="nav-cart-con">
+						<div class="m-loading-2014"><em></em></div>
+						<div class="nav-car-cartEmpty"><i></i>您的购物车为空 !</div>
+						<div class="nav-cart-select"></div>
+						<div class="nav-cart-pay"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--当前位置-->
+		<div class="Current_nav">
+			当前位置：
+			<a href="/">首页</a> <span>&gt;</span>
+			<a href="/list/m1.html">所有商品</a> <span>&gt;
+        </div>
+        <div class="ng-wrap">
+            <div id="ng_pt_line" class="ng-pt-line"></div>
+            <div id="divMain" class="ng-main-wrapper">
+                <!--期数-->
+                <div class="ng-total-nav">
+                    <ul class="ng-sort clearfix">
+                        <li class="current now ">
+                        	<a href="javascript:;" >第425云进行中<span class="dotting"></span>
+			</a>
+			</li>
+			</ul>
+		</div>
+
+		<!--商品信息 begin-->
+		<div id="divMainInfo" class="ng-main clearfix">
+			<!--图片展示-->
+			<div class="ng-goods-img">
+				<div id="middlePicRemark" class="middlePicRemark"></div>
+				<img id="imgGoodsPic" alt="" src="" style="display: none;" />
+				<div id="middlePicBox" class="ng-middle-box">
+					<img class="z-middle-loading" src="image/details/loding.gif" alt="加载中..." />
+				</div>
+				<div class="ng-goods-piclist">
+					<div class="ng-goods-btn prev ng-box-bg" style="display: none;"></div>
+					<div class="ng-list-wrapper">
+						<ul id="mycarousel" class="ng-list-inner clearfix" style="width: 999px;">
+						</ul>
+					</div>
+					<div class="ng-goods-btn next ng-box-bg" style="display: none;"></div>
+				</div>
+
+			</div>
+
+			<!--正在进行中-->
+
+			<div class="ng-goods-detail">
+
+				<h2 class="o-title"></h2>
+
+				</p>
+				<div class="line-time">
+					<div id="soldwidth" class="line-wrapper u-progress"><span class="pgbar"><span class="pging"></span></span>
+					</div>
+					<div class="text-wrapper clearfix">
+						<div class="now-has">
+							<p>已参与</p>
+						</div>
+						<div class="total-has">
+							<p>总需人次</p>
+						</div>
+						<div class="overplus-has">
+							<p>剩余</p>
+						</div>
+					</div>
+				</div>
+				<div class="my-buy clearfix">
+					<p class="mine">我要参与</p>
+					<div id="divNumber" class="option-wrapper clearfix">
+						<a href="javascript:;" class="mius">-</a>
+						<input type="text" class="input-num" value="1" />
+						<a href="javascript:;" class="add">+</a>
+
+					</div>
+					<ul class="check-num clearfix">
+						<li>10</li>
+						<li>50</li>
+						<li>100</li>
+						<li>200</li>
+					</ul>
+					<p class="fl">人次</p>
+					<div class="mine-prob" style="display:none;"><i></i></div>
+					<span id="span_tip"></span>
+				</div>
+				<div id="divBuy" class="consume-wrapper clearfix">
+					<a href="javascript:;" class="consume-now">立即1元云购</a>
+					<a href="javascript:;" class="consume-addcar">加入购物车</a>
+
+				</div>
+
+				<div class="about-tips clearfix">
+					<ul class="f-inner clearfix">
+						<li class="z-beginning">服务保证：</li>
+						<li>
+							<a href="" target="_blank"><i class="ng-xq-bg t1"></i>100%公平公正</a>
+						</li>
+						<li class="z-lines"><b></b></li>
+						<li>
+							<a href="" target="_blank"><i class="ng-xq-bg t2"></i>100%正品保证</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="advert-wrapper">
+					<ul class="select-wrapper">
+						<li class="gray9">怎么玩儿<i class="ng-xq-bg"></i></li>
+					</ul>
+					<div id="div_advertinner" class="advert-inner clearfix">
+						<div class="advert-list01 advert-m">
+							<div class="ad-icon01 ng-xq-bg"></div>
+							<p class="ad-title">选择商品</p>
+							<p class="ad-info">
+								选择心仪商品<br /> 点击立即1元云购
+							</p>
+							<div class="arrow ng-xq-bg"></div>
+						</div>
+						<div class="advert-list02 advert-m">
+							<div class="ad-icon02 ng-xq-bg"></div>
+							<p class="ad-title">支付1元</p>
+							<p class="ad-info">
+								支持1元<br /> 获得1个云购码
+							</p>
+							<div class="arrow ng-xq-bg"></div>
+						</div>
+						<div class="advert-list03 advert-m">
+							<div class="ad-icon03 ng-xq-bg"></div>
+							<p class="ad-title">揭晓幸运儿</p>
+							<p class="ad-info">
+								当1件商品的所有份额都获得<br /> 支持后，计算出幸运获得者
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--揭晓倒计时-->
+
+			<!--右侧：云购记录-->
+			<div class="ng-goods-buy">
+				<!--进行中状态-->
+
+				<div class="ng-buy-list">
+					<div id="div_buynav" class="ng-buy-nav">
+						<a href="javascript:;" title="我的云购记录" class="ng-fr current">我的云购记录</a>
+						<a href="javascript:;" title="云购记录" class="ng-fr">云购记录</a>
+					</div>
+
+					<div id="div_myrecord" class="list-wrap" style="display: block;">
+						<div class="my-record">
+							<!--未登录-->
+							<div class="no-login-wrapper">
+								<div class="gth-icon transparent-png"></div>
+								<p class="ng-see-mycord">请您
+									<a id="a_login" href="javascript:;">登录</a>后查看云购记录！</p>
+							</div>
+						</div>
+						<a href="javascript:;" style="display: none;" target="_blank" class="select-all">查看全部</a>
+					</div>
+				</div>
+
+				<!--结束状态-->
+
+			</div>
+			<!--清除浮动-->
+			<div class="clear"></div>
+		</div>
+		</div>
+
+		<!--中间浮动导航-->
+		<div id="div_menu" class="ng-goods-option">
+			<ul id="ul_menu" class="options-menu">
+				<li class="current"><span>商品详情</span><i class="bor"></i></li>
+			</ul>
+			<a id="btnAdd2Card" href="javascript:;" class="op-addcar" style="display:none;">加入购物车<i class="a-icon transparent-png"></i></a>
+		</div>
+
+		<!--商品信息-->
+		<div id="div_desc" class="ng-product-content">
+			<div class="product-con">
+
+				<div style="width:800px; margin:0px auto; padding:0px; text-align:center;">
+					<p style="padding:0px; margin:0px;"><img src2="../upload/goods/2/24.jpg" title="1.jpg" alt="1.jpg" /></p>
+
+				</div>
+				<div style="width:800px; margin:10px auto; font-family:&#39;微软雅黑&#39;; color:#333;">
+					<p style="font-size:16px; line-height:25px; padding:10px 0px 10px 0px; margin:0px;">
+						重要说明：</p>
+					<p style="font-size:14px; line-height:22px; padding:0px 0px 10px 0px; margin:0px;">
+						以上详情页面展示信息仅供参考，商品以实物为准。</p>
+				</div>
+			</div>
+		</div>
+
+		<!--所有参与记录-->
+		<div id="div_allrecord" class="ng-all-record" style="display: none;">
+			<!--记录表-->
+			<div class="record">
+				<div class="rocord-header">所有参与记录</div>
+				<ul class="record-list">
+					<div class="ng-b-wait"></div>
+				</ul>
+			</div>
+		</div>
+
+		<!--底部-->
+		<div class="g-footer">
+
+		</div>
+		<!--版权-->
+		<div class="g-copyrightCon clrfix">
+			<div class="w1190">
+				<div class="g-links">
+					<a href="newindex.html" target="_blank" title="首页">首页</a><s></s>
+					<a href="#" target="_blank" title="关于云购">关于云购</a>
+				</div>
+				<div class="g-copyright">Copyright &copy; 2017, 徐国伟的毕设(╯‵□′)╯︵┻━┻</div>
+			</div>
+		</div>
+		<!--通栏购物车-->
+		<div id="rightTool" class="g-outer">
+
+			<!--登录-->
+			<div id="divRTLogin" class="cartLogin-wrapper clrfix" style="display: none; height:230px;">
+				<div class="cartLogin-title" style="display: block;">
+					<a href="https://passport.1yyg.com/register.html" target="_blank" class="orange fr">免费注册<em class="f-tran">>></em></a>登录
+				</div>
+				<div class="cartLogin-con clrfix" style="display: block;">
+					<ul>
+						<li>
+							<p class="z-zhangh">
+								<label class="z-clump-icon"></label>
+								<input type="text" value="" placeholder="手机号/邮箱" id="username" />
+							</p>
+						</li>
+						<li>
+							<p class="z-mim">
+								<label class="z-clump-icon"></label>
+								<input type="password" value="" placeholder="密码" id="password" />
+							</p>
+						</li>
+						<li id="vcCodeContainerLi" style="display: none;">
+							<div class="vc-wrapper">
+								<div class="vc-btn-container" id="dragBtnContainer">
+									<div class="vc-slide-text"><span>请按住滑块，拖动到最右边</span></div>
+									<div class="vc-slideBtnLeft" id="dragBtnLeft">
+										<span class="canvas-Title" style="display: none;">请点击图中的"<strong id="selectedChar"></strong>"字</span>
+										<span class="canvas-Title" style="display: none;">验证通过！</span>
+										<a href="javascript:;" class="passport-icon refresh" id="refreshVcCode" style="display: none;"></a>
+									</div>
+									<div class="vc-slideBtn" id="dragBtn"><i class="passport-icon ready-status"></i></div>
+								</div>
+								<div class="canvas-wrapper" style="display: none;">
+									<div class="canvas-container" id="canvasContainer" style="">
+										<img id="vcCanvas" class="vc-canvas" src="" alt="验证码">
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="f-error-message orange" id="miniLoginErrorMsgLi"></li>
+						<li class="cart-login-btn"><input type="button" name="vCode" value="登录" id="miniLoginBtn" /></li>
+						<li class="f-wjpwd">
+							<a class="gray9 fl" href="https://passport.1yyg.com/findpassword.html" target="_blank">忘记密码？</a>
+							<span class="fr">快捷登录：
+                                         <a href="javascript:;" id="btnQQLogin" class="z-clump-icon qq-login"></a>
+                                         <a href="javascript:;" id="btnWXLogin" class="z-clump-icon wx-login"></a>
+                                     </span>
+						</li>
+					</ul>
+				</div>
+
+				<div class="wxLogin-con clrfix" style="display: none;">
+					<h2>微信登录</h2>
+					<p id="wxLoginImgContainer"></p>
+					<a href="javascript:;"></a>
+				</div>
+				<a class="delete-close"></a>
+			</div>
+		</div>
+		</div>
+		</div>
+
+		<!-- 获取商品详情信息
+ 			goodsId
+ 			goodsTitle
+ 			
+ 		-->
+
+	</body>
+	<script src="jquery/JQUERY/jquery.cookie.js"></script>
+	<script>
+		//	获取商品ID	
+		window.good = [];
+		window.issue = [];
+		$(function() {
+
+			var s = window.location.href;
+
+			var goodId = GetArgsFromHref(s, "goodId");
+			var goodIssue = GetArgsFromHref(s, "goodIssue");
+			var html = [];
+
+			//查询商品信息
+			$.ajax({
+				type: "POST",
+				url: "../goodsInfo.action",
+				data: {
+					goodsId: goodId,
+					goodIssue: goodIssue
+				},
+				dataType: "json",
+				success: function(json) {
+					window.good = json.goodoutput.good;
+					window.issue = json.goodoutput.issue;
+
+					//加载图片信息
+
+					for(var i = 1; i <= 3; i++) {
+						picUrl = "../upload/goods/" + good.goodId + "/" + good.goodId + i + ".jpg";
+						html.push('<li onclick="getPicurl('+i+');"><img width="40" height="40" src="' + picUrl + '"/></li>');
+					}
+					var first ="../upload/goods/" + good.goodId + "/" + good.goodId +"1.jpg";
+					//初始化大图
+					$("#middlePicBox").html('<img style="width:343px;height:343px;" src='+first+'>');
+					$("#mycarousel").html(html);
+
+					//加载进度条
+					var lessnum = issue.totalnum - issue.soldnum;
+					var percent = (issue.soldnum / issue.totalnum * 100).toFixed(2) + "%";
+					$(".pgbar").css("width", percent);
+					style = "width:90px;display:"
+					//加载右侧信息
+					$(".now-has").html('<span>' + issue.soldnum + '</span>');
+					$(".total-has").html('<span>' + issue.totalnum + '</span>');
+					$(".overplus-has").html('<span>' + lessnum + '</span>');
+					//加载商品名称
+					$(".o-title").html('<span class="num">（第' + issue.issueId + '期）</span>' + good.ext1);
+					//加载
+				},
+				error: function(json) {
+					alert("商品信息查询失败");
+					return false;
+				}
+			});
+
+			//下拉框实现 开始(╯‵□′)╯︵┻━┻
+			$("#liMember").hover(function() {
+				$("#liMember").addClass("u-arr-hover");
+			}, function() {
+				$("#liMember").removeClass("u-arr-hover");
+			});
+
+			$("#liTopUMsg").hover(function() {
+				$("#liTopUMsg").addClass("u-arr-hover");
+			}, function() {
+				$("#liTopUMsg").removeClass("u-arr-hover");
+			});
+			//下拉框实现 结束(╯‵□′)╯︵┻━┻
+			var iconUrl;
+			//使用user.js 进行判断用户是否登录
+			isLogin(function(data) {
+				if(data == "true") {
+					$($(".nologin")).addClass("slidesjs-navigation");
+
+					$("#liMember").css("display", "block");
+					$("#liTopUMsg").css("display", "block");
+					iconUrl = "../upload/" + $.cookie("userIcon");
+					$("#userIcon").attr("src", iconUrl);
+
+				} else {
+					$($(".login")).addClass("slidesjs-navigation");
+				}
+			});
+		})
+	
+		/**
+		 * 获取参数
+		 * @param {Object} sHref
+		 * @param {Object} sArgName
+		 */
+		function GetArgsFromHref(sHref, sArgName) {
+			var args = sHref.split("?");
+			var retval = "";
+
+			if(args[0] == sHref) /*参数为空*/ {
+				return retval; /*无需做任何处理*/
+			}
+			var str = args[1];
+			args = str.split("&");
+			for(var i = 0; i < args.length; i++) {
+				str = args[i];
+				var arg = str.split("=");
+				if(arg.length <= 1) continue;
+				if(arg[0] == sArgName) {
+					retval = arg[1];
+				}
+			}
+			return retval;
+		}
+		
+		//点击选择图片进行展示
+		
+		function getPicurl(i){
+			var bigpic = "../upload/goods/" + good.goodId + "/" + good.goodId + i + ".jpg";
+			$("#middlePicBox").html('<img style="width:343px;height:343px;" src='+bigpic+'>');
+			
+			
+			
+		}
+	</script>
+
+</html>

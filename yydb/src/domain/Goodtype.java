@@ -2,17 +2,30 @@ package domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Goodtype entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name="goodtype")
 public class Goodtype implements java.io.Serializable {
 
 	// Fields
-
+	@Id
+    @Column(name = "typeId", insertable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer typeId;
+	@Column(name = "typeName")
 	private String typeName;
+	@Column(name = "createDate")
 	private Date createDate;
+	@Column(name = "doneDate")
 	private Date doneDate;
 
 	// Constructors

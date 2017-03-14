@@ -1,5 +1,12 @@
 package action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -14,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import pojo.LoginOutPut;
 
 import service.UserServiceImpl;
+import util.PictureUpload;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -27,7 +35,16 @@ public class LoginAction extends ActionSupport{
 	private String userpassword;
 	private LoginOutPut output;
 	private String flag;
+	private File avatar_file;
 	
+	public File getAvatar_file() {
+		return avatar_file;
+	}
+
+	public void setAvatar_file(File avatar_file) {
+		this.avatar_file = avatar_file;
+	}
+
 	public String getFlag() {
 		return flag;
 	}
@@ -61,15 +78,24 @@ public class LoginAction extends ActionSupport{
 	}
 	
 	
+	/**
+	 * ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @return
+	 * @throws Exception
+	 */
 	
 	public String usernameCheck() throws Exception{
 		return null;
 	}
 
+	/**
+	 *Úµï¿½Â½×´Ì¬
+	 * @return
+	 */
 	public String loginChk(){
-		//»ñÈ¡request¶ÔÏó 
+		//
 		HttpServletRequest request = ServletActionContext.getRequest();			
-		 //»ñÈ¡session
+		 //
         HttpSession httpSession = request.getSession();
         
         User user = (User) httpSession.getAttribute("User");
@@ -82,13 +108,16 @@ public class LoginAction extends ActionSupport{
 		return "success";
 		
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public String userLogin() {
 		
 		try {
-			//»ñÈ¡request¶ÔÏó 
+			//
 			HttpServletRequest request = ServletActionContext.getRequest();			
-			 //»ñÈ¡session
+			 //
 	        HttpSession httpSession = request.getSession();
 			 
 			System.out.println("------------------session="+httpSession.getId());
@@ -108,6 +137,10 @@ public class LoginAction extends ActionSupport{
 		
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String userRegist(){
 		
 		userServiceImpl.UserRegist(username, userpassword);
@@ -115,6 +148,52 @@ public class LoginAction extends ActionSupport{
 		return "success";		
 	}
 
+	/**
+	 * 
+	 * @throws IOException 
+	 */
+	public String userIcon() throws IOException{
+		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		
+		HttpSession httpSession = request.getSession();
+
+		User user = (User) httpSession.getAttribute("User");
+		
+		PictureUpload upload = new PictureUpload();
+		File toFile = upload.uploadpic("/User/"+user.getUserName()+"/"+user.getUserName()+".jpg", avatar_file);
+		
+//        InputStream is = new FileInputStream(avatar_file);  
+//          
+//        String uploadPath = ServletActionContext.getServletContext()  
+//                .getRealPath("/upload");  
+//          
+//        System.out.println(uploadPath);
+//        File toFile = new File(uploadPath,avatar_file.getName());  
+//          
+//        OutputStream os = new FileOutputStream(toFile);  
+//  
+//        byte[] buffer = new byte[1024];  
+//  
+//        int length = 0;  
+//  
+//        while ((length = is.read(buffer)) > 0) {  
+//            os.write(buffer, 0, length);  
+//        }  
+//         
+//        is.close();  
+//          
+//        os.close();  
+		
+        String userIconUrl = "User/"+user.getUserName()+"/"+toFile.getName();
+        userServiceImpl.UserIconSet(user.getUserId(), userIconUrl);
+        
+        
+		System.out.println("file_name ="+avatar_file.getName());
+		System.out.println("----------------");
+		return "success";
+	}
+	
 	@Override
 	public String toString() {
 		return "LoginAction [username=" + username + ", userpassword="
