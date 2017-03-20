@@ -77,9 +77,9 @@ public class UserServiceImpl {
 	 */
 	@Transactional
 	public String RegistNameChk(String RegistName,String RegistType){
-		String retMsg = null;
+		String retMsg = "success";
 		List<User> user = new ArrayList<User>();
-		if(RegistType.equals(1)){ //手机号注册
+		if(RegistType.equals("1")){ //手机号注册
 			user = userDAO.findByUserPhone(RegistName);
 			if(!user.isEmpty()){
 				retMsg = "该手机号码已被注册";

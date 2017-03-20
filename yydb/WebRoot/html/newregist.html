@@ -81,6 +81,7 @@
  	   			$("#regist li").click(function(){
  	   				$(this).find("em").css('display','none');
  	   				$(this).find("span").css('display','none');
+ 	   				$("#txtloginName").attr('nameChk','true');
  	   			})
  	   			
  	   			$("#txtloginName").blur(function(){
@@ -102,7 +103,11 @@
            			data:param,
            			dataType:"json",
            			success:function(json){
-           				alert("用户名校验结束");
+           			if(!(json=="success")){
+           				$("#NameTips").html('<i class="passport-icon transparent-png"></i>'+json+'');
+           				$("#NameTips").css('display','block');
+           				$("#txtloginName").attr('nameChk','false');//设置检查属性为不允许通过
+           				}
            			},
            			error:function(json){
            				alert("json="+json);
@@ -119,7 +124,11 @@
            		var conpassword = $("#txtConPwd").val();
            
            /*注册需满足的条件*/
-           		
+           		var nameflag = $("#txtloginName").attr('nameChk');
+           		if(nameflag=="false"){
+           			sweetAlert("请检查手机号或邮箱是否正确");
+           			return;
+           		}
            		if(Password!=conpassword){
            			sweetAlert("请确认两次密码输入一致！");
            			return;
