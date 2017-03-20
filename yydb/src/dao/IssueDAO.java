@@ -169,4 +169,5 @@ public class IssueDAO extends BaseHibernateDAO {
 			throw re;
 		}
 	}
+	
 }

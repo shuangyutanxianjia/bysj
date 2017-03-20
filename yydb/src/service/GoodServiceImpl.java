@@ -11,7 +11,6 @@ import pojo.GoodsInfoOutput;
 import pojo.GoodsTypeOutput;
 import pojo.addGoodsInput;
 
-import util.FormatString;
 import util.PictureUpload;
 
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>活动倒计时代码（精确到毫秒）jquery插件 - 懒人建站 http://www.51xuediannao.com/</title>
+</head>
+
+<body>
+
+<script type="text/javascript" src="jquery/JQUERY/jquery.min.js"></script>
+<script type="text/javascript" src="js/daojishi.js"></script>
+
+<div style="padding: 50px;">活动倒计时代码（精确到毫秒）jquery插件 - <a href="http://www.51xuediannao.com/js/jquery/">jquery插件</a>懒人建站：http://www.51xuediannao.com/</div>
+<div style="background:rgb(183,17,41);  WIDTH: 100%;  color:#fff;FONT-FAMILY: arial; TEXT-ALIGN: center;">
+    <P style="font-size:.8em;line-height:2em;">距活动结束还有：</P>
+    <div id="fnTimeCountDown" data-end="2018/07/08 18:45:13">
+        <span class="year">00</span>年
+        <span class="month">00</span>月
+        <span class="day">00</span>天
+        <span class="hour">00</span>时
+        <span class="mini">00</span>分
+        <span class="sec">00</span>秒
+        <span class="hm">000</span>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#fnTimeCountDown").fnTimeCountDown("2018/07/08 18:45:13");
+</script>
+
+</body>
+</html>

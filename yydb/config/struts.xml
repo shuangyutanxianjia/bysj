@@ -46,11 +46,32 @@
 			<result name="success" type="json"></result>
 		</action>
 		
+		<!-- 购物渠道 -->
 		<!-- 获取商品信息 -->
 		<action name="goodsInfo" class="action.ShopAction" method="getGoodsInfo">
 			<result name="success" type="json"></result>
+		</action>		
+		
+		<!-- 商品购买 -->
+		<action name="goodsShop" class="action.ShopAction" method="shopGoods">
+			<result name="success" type="json"></result>
 		</action>
 		
+		<!-- 界面展示 -->
+		<!-- 主页获取商品展示（暂定全部） -->
+		<action name="showgoods" class="action.ShowAction" method="showGoods">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- 主页获取正在开奖商品（暂定） -->
+		<action name="showopen" class="action.ShowAction" method="showOpen">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<!-- 主页获取已经揭晓 -->
+		<action name="getlottle" class="action.LottleAction" method="getLottle">
+			<result name="success" type="json"></result>
+		</action>			
 	</package>
 
 

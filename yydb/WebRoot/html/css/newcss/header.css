@@ -290,7 +290,7 @@ body {
 .f-pay-fail,
 .roll_close a,
 .u-cart-name dfn s {
-	background: url(../images/header-icon.png?v=1120);
+	background: url(../../image/index/head-2014.png);
 }
 
 .orange_btn,
@@ -649,7 +649,7 @@ body.limit .nav-main li.f-nav-limit {
 .F_goods_xp,
 .F_goods_tj,
 .F_goods_xg {
-	background-image: url(../images/index-2014.png?v=1216);
+	background-image: url(../../image/index/index-2014.png);
 	background-repeat: no-repeat;
 }
 

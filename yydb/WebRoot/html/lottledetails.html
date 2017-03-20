@@ -516,43 +516,11 @@
 					//查询商品信息
 					$.ajax({
 							type: "POST",
-							url: "../goodsInfo.action",
-							data: {
-								goodsId: goodId,
-								goodIssue: goodIssue
-							},
+							url: "./getlottle.action",
+							data: "",
 							dataType: "json",
 							success: function(json) {
-								window.good = json.goodoutput.good;
-								window.issue = json.goodoutput.issue;
-
-								//加载图片信息
-								for(var i = 1; i <= 3; i++) {
-									picUrl = "../upload/goods/" + good.goodId + "/" + good.goodId + i + ".jpg";
-									html.push('<li onclick="getPicurl(' + i + ');"><img width="40" height="40" src="' + picUrl + '"/></li>');
-								}
-								var first = "../upload/goods/" + good.goodId + "/" + good.goodId + "1.jpg";
-								//初始化大图
-								$("#middlePicBox").html('<img style="width:343px;height:343px;" src=' + first + '>');
-								$("#mycarousel").html(html);
-								if(issue.isdraw == 0) {
-									//加载期数
-									$("#issuenum").html(' <li class="current now "><a href="javascript:;" >第' + goodIssue + '云进行中<span class="dotting"></span></a></li>');
-
-									//加载进度条
-									var lessnum = issue.totalnum - issue.soldnum;
-									var percent = (issue.soldnum / issue.totalnum * 100).toFixed(2) + "%";
-									$(".pgbar").css("width", percent);
-									style = "width:90px;display:"
-									//加载右侧信息
-									$(".now-has").html('<span>' + issue.soldnum + '</span>');
-									$(".total-has").html('<span>' + issue.totalnum + '</span>');
-									$(".overplus-has").html('<span>' + lessnum + '</span>');
-									//加载商品名称
-									$(".o-title").html('<span class="num">（第' + issue.issueId + '期）</span>' + good.ext1);
-									//加载
-									var gooddetailUrl = "../upload/goods/" + good.goodId + "/" + good.goodId + "4.jpg";
-									$("#gooddetail").html('<p style="padding:0px; margin:0px;"><img src=' + gooddetailUrl + '></p>')
+								alert("12321");
 
 								},
 								error: function(json) {
