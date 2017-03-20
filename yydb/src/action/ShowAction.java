@@ -4,22 +4,20 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Component;
+
 import pojo.LottleOutput;
 import pojo.ShowOutPut;
 
 import service.ShowService;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+@Component
 public class ShowAction extends ActionSupport{
 	@Resource
 	ShowService showService;
 	
 	private ShowOutPut output;
-	
-
-
-
 	public ShowOutPut getOutput() {
 		return output;
 	}

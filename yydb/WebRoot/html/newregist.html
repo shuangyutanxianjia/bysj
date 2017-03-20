@@ -28,29 +28,29 @@
             <div class="m-main clrfix">
                 <h2 class="gray3">新用户注册</h2>
                 <div class="register-form-con clrfix">
-                    <ul>
+                    <ul id="regist">
                         <li>
-                        	手机号/邮箱地址
+                        	
                             <input id="txtloginName" type="text" maxlength="100"/>
                             <b class="passport-icon user-name transparent-png"></b>
-                            <span class="orange" style="display: none;"></span>
+                            <em style="display: block;">手机号/邮箱地址</em>
+                            <span class="orange" style="display: none;" id="NameTips"><i class="passport-icon transparent-png"></i>请输入正确的手机号或邮箱地址</span>
                             
                         </li>
                         <li>
-                        	设置登录密码
                             <input id="txtPwd" type="password" maxlength="20"/>
                             <b class="passport-icon login-password transparent-png"></b>
-                            <span class="orange" style="display: none;"></span>
-                          
+                            <em style="display: block;">设置登录密码</em>
+                            <span class="orange" style="display: none;"></span>      	
                             <span id="pwdStrength" style="display: none;"></span>
 
                         </li>
                         <li>
-                        	确认密码
                             <input id="txtConPwd" type="password" maxlength="20"/>
                             <b class="passport-icon login-password transparent-png"></b>
+                            <em style="display: block;">确认密码</em>
                             <span class="orange" style="display: none;"></span>
-                        
+                        	<span id="pwdStrength" style="display: none;"></span>
                         </li>
                         
                     </ul>
@@ -76,8 +76,45 @@
 </body>
 
  	   <script> 
+ 	   		$(function(){
+ 	   			//文本框获取焦点将文本清除
+ 	   			$("#regist li").click(function(){
+ 	   				$(this).find("em").css('display','none');
+ 	   				$(this).find("span").css('display','none');
+ 	   			})
+ 	   			
+ 	   			$("#txtloginName").blur(function(){
+ 	   				var registName = $("#txtloginName").val();
+           			var registType = checktxt(registName);  //判断用户注册为手机注册1、邮箱注册2
+           			//前端检查注册用户名
+           			if(!registType){
+           				$("#NameTips").css('display','block');
+           				return;
+           			}else{
+           			//后台检查注册邮箱或手机是否已经被注册
+           			var param={
+           				registName : registName,
+           				registType : registType
+           			}
+           			$.ajax({
+           			type:"POST",
+           			url:"./loginnamechk.action",
+           			data:param,
+           			dataType:"json",
+           			success:function(json){
+           				alert("用户名校验结束");
+           			},
+           			error:function(json){
+           				alert("json="+json);
+           				return false;
+           			}
+           			});   
+           			}
+           			
+           		})
+ 	   		})
            $("#btnAgreeBtn").click(function(){
-           		var userName = $("#txtloginName").val();
+           		var loginName = $("#txtloginName").val();  //用户登录名，可以为手机号码或者邮箱
            		var Password = $("#txtPwd").val();
            		var conpassword = $("#txtConPwd").val();
            
@@ -96,7 +133,7 @@
            		sweetAlert("post start");
            		$.ajax({
            			type:"POST",
-           			url:"${pageContext.request.contextPath}/userregist.action",
+           			url:"./userregist.action",
            			data:param,
            			dataType:"json",
            			success:function(json){
@@ -121,6 +158,19 @@
            				return false;
            			}
            		});           		
-           })        
+           })
+           function checktxt(registName){
+           	var flag = 0;
+    			if((/^1(3|4|5|7|8)\d{9}$/.test(registName))){ 
+        			flag = 1;  //表示注册用的是手机
+        			return flag;
+    			}
+    			if((/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(registName))){
+    				flag = 2;	//表示注册用的是邮箱
+    				return flag;
+    			}
+    		return flag;
+           }
+           
        </script> 
 </html>

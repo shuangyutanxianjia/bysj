@@ -2,6 +2,7 @@ package Task;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import util.DateUtils;
 
 import dao.IssueDAO;
 import dao.LottleDAO;
@@ -31,12 +30,14 @@ public class OpenLottleTask {
 	@Autowired
 	LottleDAO lottleDAO;
 	
+
 	@Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次    
 	@Transactional
 	public void openLottle(){
 		Date  date = new Date();
 		System.out.println(date+"--------------开始执行后台开奖流程");
-		List<Issue> issueList = issueDAO.findByIsdraw(1);//获取所有进行中的stage
+		List<Issue> issueList = new ArrayList<Issue>();//获取所有进行中的stage
+		issueList = issueDAO.findByIsdraw(1);
 		for (Issue issue : issueList) {
 			Date  endDate= issue.getDoneDate();
 			Date  date1 = new Date();		

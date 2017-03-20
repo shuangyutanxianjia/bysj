@@ -12,9 +12,17 @@
 			<result name="success" type="json">user</result>
 		</action>
 		
+		<!-- 用户注册模块 -->
 		<action name="userregist" class="action.LoginAction" method="userRegist">
 			<result name="success" type="json"></result>
 		</action>
+		<!-- 注册用户名校验 -->
+		<action name="loginnamechk" class="action.RegistAction" method="loginNameChk">
+			<result name="nameChk_success" type="json">
+				<param name="root">retMsg</param>
+			</result>
+		</action>
+		
 		
 		<action name="loginchk" class="action.LoginAction" method="loginChk">
 			<result name="success" type="json">user</result>
@@ -58,7 +66,7 @@
 		</action>
 		
 		<!-- 界面展示 -->
-		<!-- 主页获取商品展示（暂定全部） -->
+		<!-- 获取主页展示信息 -->
 		<action name="showgoods" class="action.ShowAction" method="showGoods">
 			<result name="success" type="json"></result>
 		</action>
@@ -68,7 +76,7 @@
 			<result name="success" type="json"></result>
 		</action>
 		
-		<!-- 主页获取已经揭晓 -->
+		<!-- 中奖信息详情 -->
 		<action name="getlottle" class="action.LottleAction" method="getLottle">
 			<result name="success" type="json"></result>
 		</action>			

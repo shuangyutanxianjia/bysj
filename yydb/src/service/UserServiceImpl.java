@@ -20,7 +20,7 @@ public class UserServiceImpl {
 	UserDAO userDAO ;
 	@SuppressWarnings("null")
 	/**
-	 * ����û��Ƿ��½
+	 * 登录信息校验
 	 * @param username
 	 * @param password
 	 * @return
@@ -42,7 +42,7 @@ public class UserServiceImpl {
 		return output;
 	}
 	/**
-	 * �û�ע��
+	 * 用户注册
 	 * @param username
 	 * @param password
 	 */
@@ -57,19 +57,40 @@ public class UserServiceImpl {
 		
 	}
 	/**
-	 * �޸��û�ͷ��
+	 * 用户头像设置
 	 * @param userId
 	 * @param iconUrl
 	 */
 	@Transactional
 	public void UserIconSet(int userId,String iconUrl){
 		User user = new User();
-		//ͨ��userId����
+		//ͨ通过用户ID查找
 		user = userDAO.findById(userId);
-		//�޸�ͷ����Ϣ
+		//设置头像路径
 		user.setUserIcon(iconUrl);
-		//����
+		//保存
 		userDAO.save(user);
+	}
+	
+	/**
+	 * 注册用户名校验
+	 */
+	@Transactional
+	public String RegistNameChk(String RegistName,String RegistType){
+		String retMsg = null;
+		List<User> user = new ArrayList<User>();
+		if(RegistType.equals(1)){ //手机号注册
+			user = userDAO.findByUserPhone(RegistName);
+			if(!user.isEmpty()){
+				retMsg = "该手机号码已被注册";
+			}
+		}else{						//邮箱注册
+			user = userDAO.findByExt1(RegistName);
+			if(!user.isEmpty()){
+				retMsg = "该邮箱已被注册";
+			}
+		}	
+		return retMsg;
 	}
 	
 }

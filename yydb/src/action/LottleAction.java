@@ -2,11 +2,13 @@ package action;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Component;
+
 import pojo.LottleOutput;
 import service.ShowService;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+@Component
 @SuppressWarnings("serial")
 public class LottleAction extends ActionSupport{
 	@Resource
@@ -16,9 +18,6 @@ public class LottleAction extends ActionSupport{
 	public LottleOutput getLottle() {
 		return lottle;
 	}
-
-
-
 	public void setLottle(LottleOutput lottle) {
 		this.lottle = lottle;
 	}
