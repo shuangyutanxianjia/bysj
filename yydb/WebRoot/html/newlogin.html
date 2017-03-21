@@ -80,21 +80,22 @@
          	 	if(!getUser()){
          	 		return;
          	 	}
+         	 	var loginType = checktxt($("#username").val());
          	 	var param = {
-           			username : $("#username").val(),
-           			userpassword :$("#pwd").val()
+           			loginname : $("#username").val(),
+           			userpassword :$("#pwd").val(),
+           			loginType : loginType
            		};
            		
            		//使用ajax进行后台交互
            		alert("start post");
            		$.ajax({
            			type:"POST",
-           			url:"${pageContext.request.contextPath}/userlogin.action",
+           			url:"./userlogin.action",
            			data:param,
            			dataType:"json",
            			success:function(json){
-           				if(json.output.flag){
-           					
+           				if(json.output.flag){          					
            					$.cookie("username", json.output.users[0].userName, {path: '/'}); 
            					$.cookie("userIcon",json.output.users[0].userIcon,{path:'/'});
            					$.cookie("userId",json.output.users[0].userId,{path:'/'});
@@ -113,9 +114,10 @@
 function getUser(){
 	 var userName = $("#username").val();
      var passWord = $("#pwd").val();
+     var loginType = checktxt(userName); //获取登录方式
      
-     if(userName == ""){
-     	alert("请输入手机号码或邮箱");
+     if(userName == ""||loginType =="0"){
+     	alert("请输入正确的手机号码或邮箱");
      	return false;
      }
      
@@ -126,7 +128,19 @@ function getUser(){
      
      return true;
 }
-         	 
+     
+     function checktxt(userName) {
+ 	var flag = 0;
+ 	if((/^1(3|4|5|7|8)\d{9}$/.test(userName))) {
+ 		flag = 1; //表示注册用的是手机
+ 		return flag;
+ 	}
+ 	if((/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(userName))) {
+ 		flag = 2; //表示注册用的是邮箱
+ 		return flag;
+ 	}
+ 	return flag;
+ }
        </script>
        
 		

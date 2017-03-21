@@ -23,9 +23,9 @@
             <span class="fr">已有账号？<a id="hylinkLoginPage" class="blue" href="newlogin.html?">立即登录</a></span>
         </div>
 
-        <div class="g-contentCon clrfix">
+        <div id = "content" class="g-contentCon clrfix">
 
-            <div class="m-main clrfix">
+            <div id="regist" class="m-main clrfix" style="display: block;">
                 <h2 class="gray3">新用户注册</h2>
                 <div class="register-form-con clrfix">
                     <ul id="regist">
@@ -60,6 +60,29 @@
                     <a id="btnAgreeBtn" href="javascript:;" class="z-agreeBtn">注册</a>
                 </div>
             </div>
+            
+            <!-- 邮箱验证模板 -->
+			<div id = "mailcheck" class="m-main clrfix" style="display: none;">
+                <h2 class="gray3">验证信息</h2>
+                <div class="security-code-con clrfix">
+                    <dl>
+                        <dt>验证码已发送至<b class="blue"></b><a id="hylinkRegisterPageA" href="newregist.html">更换</a></dt>
+                        <dd class="code-form code-send-align">
+                        	请输入6位验证码
+                            <input id="txtCode" type="text" maxlength="6">
+                            <span class="orange" style="display:none;"></span>
+                        </dd>
+                        <dd><a id="btnSubmit" href="javascript:;" class="z-agreeBtn">提交</a></dd>
+                    </dl>
+                </div>
+			</div>
+
+
+			<div id="regist_success" class="m-main clrfix" style="display: none;">
+                <h2 class="gray3">注册成功</h2>
+                <a id="btnlogin" href="newlogin.html" class="z-agreeBtn">立即登录</a></dd>
+			</div>
+
         </div>
 
        <!-- 底部版权 -->
@@ -74,112 +97,165 @@
            </div>
        </div>
 </body>
+<script src="jquery/jquery.tmpl.js"></script>
+
 
  	   <script> 
- 	   		$(function(){
- 	   			//文本框获取焦点将文本清除
- 	   			$("#regist li").click(function(){
- 	   				$(this).find("em").css('display','none');
- 	   				$(this).find("span").css('display','none');
- 	   				$("#txtloginName").attr('nameChk','true');
- 	   			})
- 	   			
- 	   			$("#txtloginName").blur(function(){
- 	   				var registName = $("#txtloginName").val();
-           			var registType = checktxt(registName);  //判断用户注册为手机注册1、邮箱注册2
-           			//前端检查注册用户名
-           			if(!registType){
-           				$("#NameTips").css('display','block');
-           				return;
-           			}else{
-           			//后台检查注册邮箱或手机是否已经被注册
-           			var param={
-           				registName : registName,
-           				registType : registType
-           			}
-           			$.ajax({
-           			type:"POST",
-           			url:"./loginnamechk.action",
-           			data:param,
-           			dataType:"json",
-           			success:function(json){
-           			if(!(json=="success")){
-           				$("#NameTips").html('<i class="passport-icon transparent-png"></i>'+json+'');
-           				$("#NameTips").css('display','block');
-           				$("#txtloginName").attr('nameChk','false');//设置检查属性为不允许通过
-           				}
-           			},
-           			error:function(json){
-           				alert("json="+json);
-           				return false;
-           			}
-           			});   
-           			}
-           			
-           		})
- 	   		})
-           $("#btnAgreeBtn").click(function(){
-           		var loginName = $("#txtloginName").val();  //用户登录名，可以为手机号码或者邮箱
-           		var Password = $("#txtPwd").val();
-           		var conpassword = $("#txtConPwd").val();
-           
-           /*注册需满足的条件*/
-           		var nameflag = $("#txtloginName").attr('nameChk');
-           		if(nameflag=="false"){
-           			sweetAlert("请检查手机号或邮箱是否正确");
-           			return;
-           		}
-           		if(Password!=conpassword){
-           			sweetAlert("请确认两次密码输入一致！");
-           			return;
-           		}
-           		
-           		var param = {
-           			username : userName,
-           			userpassword :Password
-           		};
-           		
-           		sweetAlert("post start");
-           		$.ajax({
-           			type:"POST",
-           			url:"./userregist.action",
-           			data:param,
-           			dataType:"json",
-           			success:function(json){
-           				if(json.output.flag){
-           				swal({
-						title: "注册成功！", 
-						text: "是否前去登录？", 
-						type: "success", 
-						showCancelButton: true,
-						closeOnConfirm: false,
-						confirmButtonText: "登录",
-						confirmButtonColor: "#f60"
-					}, function() {
-						window.location.href="./newlogin.html";
-					});
-						}else{
-					swal("注册失败!", "请稍后再试！", "error");
-					}
-           			},
-           			error:function(json){
-           				alert("json="+json);
-           				return false;
-           			}
-           		});           		
-           })
-           function checktxt(registName){
-           	var flag = 0;
-    			if((/^1(3|4|5|7|8)\d{9}$/.test(registName))){ 
-        			flag = 1;  //表示注册用的是手机
-        			return flag;
-    			}
-    			if((/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(registName))){
-    				flag = 2;	//表示注册用的是邮箱
-    				return flag;
-    			}
-    		return flag;
-           }
-           
-       </script> 
+ 	   $(function() {
+ 	//文本框获取焦点将文本清除
+ 	$("#regist li").click(function() {
+ 		$(this).find("em").css('display', 'none');
+ 		$(this).find("span").css('display', 'none');
+ 		$("#txtloginName").attr('nameChk', 'true');
+ 	})
+
+ 	$("#txtloginName").blur(function() {
+ 		var registName = $("#txtloginName").val();
+ 		var registType = checktxt(registName); //判断用户注册为手机注册1、邮箱注册2
+ 		//前端检查注册用户名
+ 		if(!registType) {
+ 			$("#NameTips").css('display', 'block');
+ 			return;
+ 		} else {
+ 			//后台检查注册邮箱或手机是否已经被注册
+ 			var param = {
+ 				RegistName: registName,
+ 				RegistType: registType
+ 			}
+ 			$.ajax({
+ 				type: "POST",
+ 				url: "./loginnamechk.action",
+ 				data: param,
+ 				dataType: "json",
+ 				success: function(json) {
+ 					if(!(json == "success")) {
+ 						$("#NameTips").html('<i class="passport-icon transparent-png"></i>' + json + '');
+ 						$("#NameTips").css('display', 'block');
+ 						$("#txtloginName").attr('nameChk', 'false'); //设置检查属性为不允许通过
+ 					}
+ 				},
+ 				error: function(json) {
+ 					alert("json=" + json);
+ 					return false;
+ 				}
+ 			});
+ 		}
+
+ 	})
+ })
+ 	   //注册按钮点击后续事件
+ $("#btnAgreeBtn").click(function() {
+ 	var registName = $("#txtloginName").val();
+ 	var registType = checktxt(registName); //判断用户注册为手机注册1、邮箱注册2
+ 	var registPsw = $("#txtPwd").val();
+ 	var conpassword = $("#txtConPwd").val();
+
+ 	/*注册需满足的条件*/
+ 	var nameflag = $("#txtloginName").attr('nameChk');
+ 	if(nameflag == "false"||registName=="") {
+ 		sweetAlert("请检查手机号或邮箱是否正确");
+ 		return;
+ 	}
+ 	if(registPsw != conpassword) {
+ 		sweetAlert("请确认两次密码输入一致！");
+ 		return;
+ 	}
+
+	if(registType==1){ //为手机注册则不需要验证
+		var param = {
+ 			RegistName: registName,
+ 			RegistType: registType,
+ 			registPsw : registPsw
+ 		};
+		$.ajax({
+ 				type: "POST",
+ 				url: "./userregist.action",
+ 				data: param,
+ 				dataType: "json",
+ 				success: function(json) {
+ 					if(!(json == "regist_success")) {
+ 						$("#regist").css('display','none');
+						$("#regist_success").css('display','block');
+ 					}else{
+ 						sweetAlert("注册失败，请重新注册");
+ 					}
+ 				},
+ 				error: function(json) {
+ 					alert("json=" +json);
+ return false;
+ }
+ });
+ }
+ else {
+
+ 	var param = {
+ 		RegistName: registName,
+ 		RegistType: registType,
+ 		registPsw: registPsw
+ 	};
+ 	
+ 	//进行邮箱验证码的发送
+ 			$.ajax({
+ 				type: "POST",
+ 				url: "./registcode.action",
+ 				data: param,
+ 				dataType: "json",
+ 				success: function(json) {
+ 					if(!(json == "registcode_success")) {
+ 						$("#regist").css('display','none');
+						$("#mailcheck").css('display','block');
+						$(".blue").text(registName);
+ 					}else{
+ 						sweetAlert("邮件发送失败");
+ 					}
+ 				},
+ 				error: function(json) {
+ 					alert("json=" +json);
+ return false;
+ }
+ });
+ }
+ })
+
+ //邮箱验证提交按钮
+ $("#btnSubmit").click(function(){
+ var registCode = $("#txtCode").val();
+ var param = {
+ 		RegistCode: registCode,
+ 		RegistType: "2"
+ 	};
+ 	//进行验证码校验
+ 	$.ajax({
+ 				type: "POST",
+ 				url: "./userregist.action",
+ 				data: param,
+ 				dataType: "json",
+ 				success: function(json) {
+ 					if(json == "regist_success") {
+ 						$("#mailcheck").css('display','none');
+						$("#regist_success").css('display','block');
+ 					}else{
+ 						sweetAlert("注册失败，请重新注册");
+ 					}
+ 				},
+ 				error: function(json) {
+ 					alert("json=" +json);
+ return false;
+ }
+ });
+ 
+ })
+
+ function checktxt(registName) {
+ 	var flag = 0;
+ 	if((/^1(3|4|5|7|8)\d{9}$/.test(registName))) {
+ 		flag = 1; //表示注册用的是手机
+ 		return flag;
+ 	}
+ 	if((/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(registName))) {
+ 		flag = 2; //表示注册用的是邮箱
+ 		return flag;
+ 	}
+ 	return flag;
+ }</script> 
 </html>

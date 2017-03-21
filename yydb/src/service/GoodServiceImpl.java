@@ -53,6 +53,7 @@ public class GoodServiceImpl {
 		List<Goodtype> goodtypes = new ArrayList();
 		goodtypes = goodtypeDAO.findAll();
 		output.setGoodtypes(goodtypes);
+		
 		return output;
 	}
 	/**

@@ -31,8 +31,21 @@ import domain.User;
 public class LoginAction extends ActionSupport{
 	@Resource
 	private UserServiceImpl userServiceImpl;
-	private String username;
+	
+	private String loginname;
+	private String loginType;
 	private String userpassword;
+	public void setLoginname(String loginname) {
+		this.loginname = loginname;
+	}
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+	public void setUserpassword(String userpassword) {
+		this.userpassword = userpassword;
+	}
+	
+
 	private LoginOutPut output;
 	private String flag;
 	private File avatar_file;
@@ -49,10 +62,6 @@ public class LoginAction extends ActionSupport{
 		return flag;
 	}
 
-	public void setFlag(String flag) {
-		this.flag = flag;
-	}
-
 	public LoginOutPut getOutput() {
 		return output;
 	}
@@ -61,67 +70,38 @@ public class LoginAction extends ActionSupport{
 		this.output = output;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getUserpassword() {
-		return userpassword;
-	}
-
-	public void setUserpassword(String userpassword) {
-		this.userpassword = userpassword;
-	}
-	
-	
 	/**
-	 * �û�����
-	 * @return
-	 * @throws Exception
-	 */
-	
-	public String usernameCheck() throws Exception{
-		return null;
-	}
-
-	/**
-	 *ڵ�½״̬
+	 * 检查登录状态
 	 * @return
 	 */
 	public String loginChk(){
-		//
+		//获取request对象
 		HttpServletRequest request = ServletActionContext.getRequest();			
-		 //
-        HttpSession httpSession = request.getSession();
-        
+		//获取httpsession对象
+        HttpSession httpSession = request.getSession();        
         User user = (User) httpSession.getAttribute("User");
         if(user == null){
         	flag = "false";
         }else{
         	flag = "true";
-        }
-		
-		return "success";
+        }		
+		return "loginChk_success";
 		
 	}
 	/**
-	 * 
+	 * 用户登录
 	 * @return
 	 */
 	public String userLogin() {
 		
 		try {
-			//
+			//获取request对象
 			HttpServletRequest request = ServletActionContext.getRequest();			
-			 //
+			 //获取session对象
 	        HttpSession httpSession = request.getSession();
 			 
 			System.out.println("------------------session="+httpSession.getId());
-			output = userServiceImpl.LoginChk(username, userpassword);
+			output = userServiceImpl.LoginChk(loginname, userpassword,loginType);
 			if(output.isFlag()){
 				ArrayList<User> users = output.getUsers();
 				for (User user: users) {
@@ -130,23 +110,12 @@ public class LoginAction extends ActionSupport{
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "success";
+		return "login_success";
 		
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public String userRegist(){
-		
-		userServiceImpl.UserRegist(username, userpassword);
-		flag = "true";
-		return "success";		
-	}
 
 	/**
 	 * 
@@ -163,28 +132,6 @@ public class LoginAction extends ActionSupport{
 		PictureUpload upload = new PictureUpload();
 		File toFile = upload.uploadpic("/User/"+user.getUserName()+"/"+user.getUserName()+".jpg", avatar_file);
 		
-//        InputStream is = new FileInputStream(avatar_file);  
-//          
-//        String uploadPath = ServletActionContext.getServletContext()  
-//                .getRealPath("/upload");  
-//          
-//        System.out.println(uploadPath);
-//        File toFile = new File(uploadPath,avatar_file.getName());  
-//          
-//        OutputStream os = new FileOutputStream(toFile);  
-//  
-//        byte[] buffer = new byte[1024];  
-//  
-//        int length = 0;  
-//  
-//        while ((length = is.read(buffer)) > 0) {  
-//            os.write(buffer, 0, length);  
-//        }  
-//         
-//        is.close();  
-//          
-//        os.close();  
-		
         String userIconUrl = "User/"+user.getUserName()+"/"+toFile.getName();
         userServiceImpl.UserIconSet(user.getUserId(), userIconUrl);
         
@@ -194,9 +141,4 @@ public class LoginAction extends ActionSupport{
 		return "success";
 	}
 	
-	@Override
-	public String toString() {
-		return "LoginAction [username=" + username + ", userpassword="
-				+ userpassword + "]";
-	}
 }
