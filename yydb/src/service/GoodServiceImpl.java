@@ -3,6 +3,7 @@ package service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,10 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pojo.GoodsInfoOutput;
 import pojo.GoodsTypeOutput;
 import pojo.addGoodsInput;
-
 import util.PictureUpload;
-
-
+import cached.GoodsBasisCache;
 import dao.GoodsDAO;
 import dao.GoodtypeDAO;
 import dao.IssueDAO;
@@ -29,6 +28,8 @@ public class GoodServiceImpl {
 	GoodsDAO goodsDAO;
 	@Autowired
 	IssueDAO issueDAO;
+	@Autowired
+	GoodsBasisCache goodsCached;
 	
 	/**
 	 * 添加商品类型
@@ -123,8 +124,7 @@ public class GoodServiceImpl {
 		//通过商品id 获取商品的基本信息
 		Goods good = new Goods();
 		int GoodId = Integer.parseInt(goodId);
-		good = goodsDAO.findById(GoodId);
-		
+		good = goodsCached.get(GoodId);
 		//通过商品id 获取商品是否已经开奖(issue表)
 		Issue issue = new Issue(); 
 		int IssueId =Integer.parseInt(issueId);
@@ -134,6 +134,4 @@ public class GoodServiceImpl {
 		output.setIssue(issue);		
 		return output;
 	}
-	
-	
 }

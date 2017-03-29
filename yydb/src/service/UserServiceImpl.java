@@ -61,7 +61,7 @@ public class UserServiceImpl {
 		}else{						//邮箱注册
 			//调用邮箱发送接口
 			String Title = "注册通知";
-			String Content = "亲爱的"+Registname+"：您好！您本次验证码为："+RegistCode+"，1元云购绝对不会向您索要验证码，为了您的账户安全，打死都不要告诉任何人，如非本人操作，可不用理会。";
+			String Content = "亲爱的"+Registname+"：您好！您本次验证码为："+RegistCode+"，1元云购绝对不会向您索要验证码，为了您的账户安全，打死都不要告诉任何人，如非本人操作，可不用理会。--该邮件为毕设所用";
 			if(sendMailUtil.sendMsg(Registname, Title, Content)){
 				retMsg = "mailsend_success";
 			}else{
@@ -130,11 +130,75 @@ public class UserServiceImpl {
 	}
 	
 	/**
+	 * 获取用户余额信息
+	 */
+	@Transactional
+	public String getBalance(String UserId){
+		String retMsg ="";
+		User user = new User();
+		user = userDAO.findById(Integer.parseInt(UserId));
+		if(user!=null){
+			retMsg = user.getExt2();
+		}else{
+			retMsg = "获取余额失败，请联系管理员";
+		}
+		return retMsg;
+	}
+	/**
+	 * 修改用户信息
+	 */
+	@Transactional
+	public String changeUserInfo(String userId,String changeName ,String changeType){
+		String retMsg = "";
+		User user = new User();
+		user = userDAO.findById(Integer.parseInt(userId));
+		if(user!=null){	//修改昵称
+			if("1".equals(changeType)){
+				user.setUserName(changeName);
+			}else if("2".equals(changeType)){ //修改绑定手机
+				user.setUserPhone(changeName);
+			}else if("3".equals(changeType)){ //修改绑定邮箱
+				user.setExt1(changeName);
+			}else{
+				retMsg = "用户信息修改失败";
+			}
+			retMsg = "change_success";
+		}else{
+			retMsg = "用户信息获取失败，请联系管理员";
+		}
+		return retMsg;
+	}
+	
+	/**
 	 * 注册用户获取随机6位验证码
 	 */
 	@Transactional
 	public String GetRadom(){
 		 int randNum = 1 + (int)(Math.random() * ((999999 - 1) + 1));
 		  return randNum+"";
+	}
+	
+	/**
+	 * 用户消费
+	 */
+	@Transactional
+	public String ShopPay(int userId,int pay){
+		String payflag= "";
+		try {
+			User user = new User();
+			user = userDAO.findById(userId);
+			double balance =Double.parseDouble(user.getExt2()); //获取用户余额信息
+			if(balance >pay){
+				balance = balance - pay; //进行扣款操作
+				user.setExt2(balance+"");
+				userDAO.save(user);
+				payflag = "pay_success";	//支付成功
+			}else{
+				payflag = "noenough_balance"; //用户余额不足
+			}
+		} catch (Exception e) {
+			payflag = "pay_failed"; //系统原因导致支付失败
+		}
+		return payflag;
 	}
 }

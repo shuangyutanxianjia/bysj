@@ -16,6 +16,13 @@ import javax.persistence.Table;
 @Table(name="goods")
 public class Goods implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5894701771720653318L;
+	/**
+	 * 
+	 */
 	// Fields
 	@Id
     @Column(name = "goodId", insertable = false, updatable = false)

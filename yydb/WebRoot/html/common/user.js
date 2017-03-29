@@ -3,12 +3,11 @@ function isLogin(c){
 		
 		$.ajax({
 			type:"POST",
-           	url:"${pageContext.request.contextPath}/loginchk.action",
+           	url:"../loginchk.action",
            	data:"",
            	dataType:"json",
-           	success:function(json){
-           		
-           		return c(json.flag);
+           	success:function(json){          		
+           		return c(json);
            	},error:function(json){
            		alert("json="+json);
            		return c(false);

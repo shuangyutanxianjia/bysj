@@ -16,18 +16,9 @@
     <script language="javascript" type="text/javascript" src="../jquery/JQUERY/jquery.js"></script>
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="../jquery/JQUERY/jquery.cookie.js"></script> 
+	<script src="../jquery/jquery.tmpl.js"></script>
 </head>
 <body>
-    <input name="hidOldName" type="hidden" id="hidOldName" value="USER.1016788825" />
-    <input name="hidBirthday" type="hidden" id="hidBirthday" />
-    <input name="hidUpdateTime" type="hidden" id="hidUpdateTime" />
-    <input name="hideCons" type="hidden" id="hideCons" value="0" />
-    <input name="hidLiveA" type="hidden" id="hidLiveA" value="0" />
-    <input name="hidLiveB" type="hidden" id="hidLiveB" value="0" />
-    <input name="hidHomeA" type="hidden" id="hidHomeA" value="0" />
-    <input name="hidHomeB" type="hidden" id="hidHomeB" value="0" />
-    <input name="hidMonthIncome" type="hidden" id="hidMonthIncome" />
-    <input name="hidSex" type="hidden" id="hidSex" value="0" />
     <div class="wrapper">
 
 <!--顶部-->
@@ -49,20 +40,14 @@
 			<li class="f-gap" style="display: none;"><s></s></li>
 		</ul>
 		<ul id="ulTopRight" class="fr">
+			<!-- 用户信息 -->
 			<li class="login">
-				<div class="u-menu-hd u-menu-login">
-					<a href="#" title="xuguowei" class="blue">
-						<span class="f1">
-                        <img id="userIcon"/><s class="transparent-png"></s>
-                        </span>
-
-					</a>
-
-					<a href="newlogin.html" title="退出">[退出]</a>
+				<div id="usertopInfo" class="u-menu-hd u-menu-login">
 				</div>
 			</li>
 
-			<li id="liMember" class="u-arr-1yyg" style="display: none;">
+
+			<li id="liMember" class="u-arr-1yyg" style="display: block;">
 				<div class="u-menu-hd">
 					<a href="http://member.1yyg.com/" title="我的1元云购">我的1元云购</a>
 					<div class="f-top-arrow"><cite>◆</cite><b>◆</b></div>
@@ -81,7 +66,7 @@
 				</div>
 			</li>
 			<li class="f-gap" style="display: none;"><s></s></li>
-			<li id="liTopUMsg" class="u-arr-news" style="display: none;">
+			<li id="liTopUMsg" class="u-arr-news" style="display: block;">
 				<div class="u-menu-hd">
 					<a href="http://member.1yyg.com/userMessage.do" title="消息">消息</a>
 					<h3 style="display: none;"></h3>
@@ -140,80 +125,76 @@
 <div class="p-center-main clrfix">
             
 <div class="sidebar_l clrfix fl">
-	<ul>
+	<ul id = "menu">
 
-		<li class="curr z-first">
-			<a href="memberModify.html" title="个人资料">个人资料</a><b></b></li>
+		<li id = "changeZL">
+			<a  title="个人资料">个人资料</a><b></b></li>
+		<li id = "userphoto">
+			<a  title="修改头像">修改头像</a><b></b></li>
+		<li id = "userphoto">
+			<a  title="账号安全">账号安全</a><b></b></li>
 	</ul>
 </div>
 
-<div class="sidebar_main clrfix fr">
-	<div class="g-purchase-title bor-bot">
-		<span class="gray3">个人资料</span>
-	</div>
-	<div class="z-content">
-		<div class="con">
-			<div class="pic-side">
-
-				<div class="pic-wrap ">
-					<img id = "userIcon1"width="120" height="120" class="h-pic" />
-					<a id="userphoto" class="h-txt">修改头像</a>
-				</div>
-
-				<div class="pic-wrap">
-					<span class="p-icon"><i class="tel"></i></span>
-					<p class="gray9">已绑定</p>
-					<p class="gray6">13218****90</p>
-					</a>
-				</div>
-				<div class="pic-wrap">
-					<span class="p-icon"><i class="mail"></i></span>
-					<p class="gray9">未绑定</p>
-					</a>
-				</div>
-			</div>
-			<div class="info-side">
-				<ul class="info-list">
-					<div class="info-sign"><i></i>温馨提示：1元云购不会以任何形式公开您的个人隐私！</div>
-					<li>
-						<span class="label">昵　　称：</span>
-						<input name="txtName" type="text" id="txtName" class="inp-long" maxlength="20" />
-						<em class="orange">*</em>
-						<span class="orange"></span>
-					</li>
-					<li>
-						<span class="label">密　　码：</span>
-						<input name="txtName" type="password" id="txtPsw" class="inp-long" maxlength="20" />
-						<span class="orange"></span>
-					</li>
-					<li>
-						<span class="label">邮　　箱：</span>
-						<input name="txtName" type="text" id="txtName" class="inp-long" maxlength="20" disabled/>
-						<span class="orange"></span>
-					</li>
-					<li>
-						<a id="btnSave" href="javascript:;" class="save-btn">保存</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+<div id = "contant" class="sidebar_main clrfix fr">
+	
 </div>
 </div>
 
+<!--页面头部信息 -->
+	<script id="UsertopInfotpl" type="text/x-jquery-tmpl">
+		<a href="#" title=${userName} class="blue">
+			<span class="f1">
+       			<img src='${iconUrl}'/><s class="transparent-png"></s>
+        </span>${userName}
+		</a>
+		<a href="../newlogin.html" title="退出">[退出]</a>
+	</script>
+	
 <script>
 	$(function(){
 		
-		iconUrl = "../../upload/"+$.cookie("userIcon");
-		$("#userIcon").attr("src",iconUrl);
-		$("#userIcon1").attr("src",iconUrl);
-		$("#userphoto").click(function(){
-			window.open (
-				'userphoto.html',
-				'newWin', 
-				'modal=yes,resizable=no, scrollbars=no' ); 
+		//下拉框实现 开始(╯‵□′)╯︵┻━┻
+			$("#liMember").hover(function() {
+				$("#liMember").addClass("u-arr-hover");
+			}, function() {
+				$("#liMember").removeClass("u-arr-hover");
+			});
+			$("#liTopUMsg").hover(function() {
+				$("#liTopUMsg").addClass("u-arr-hover");
+			}, function() {
+				$("#liTopUMsg").removeClass("u-arr-hover");
+			});
+			//下拉框实现 结束(╯‵□′)╯︵┻━┻
+			//加载头部用户信息 从cookie中获取用户id 用户昵称 用户头像路径
+			var iconUrl = "../../upload/" + $.cookie("userIcon")+"?="+GetRandomNum();
+			var userName = $.cookie("username");
+			var userId = $.cookie("userId");
+			var userPhone = $.cookie("userphone");
+			var userMail= $.cookie("userMail");
+			var param = {
+				iconUrl : iconUrl,
+				userName : userName,
+				userId : userId
+			}
+			$("#UsertopInfotpl").tmpl(param).appendTo('#usertopInfo');
+		
+		
+		$("#menu li").click(function(){
+			$(this).addClass("curr z-first");
+			$(this).siblings().removeClass("curr z-first");
+			var url = $(this).attr("id")+".html";
+			$("#contant").load(url);
 		})
 	})
+	
+	//获取随机数
+	function GetRandomNum()
+	{   
+	var Range = 99;   
+	var Rand = Math.random();   
+	return(1 + Math.round(Rand * Range));   
+	}     
 	
 </script>
 

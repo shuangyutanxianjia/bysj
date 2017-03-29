@@ -35,6 +35,11 @@ public class LoginAction extends ActionSupport{
 	private String loginname;
 	private String loginType;
 	private String userpassword;
+	private String userId;
+	private File avatar_file;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public void setLoginname(String loginname) {
 		this.loginname = loginname;
 	}
@@ -44,30 +49,23 @@ public class LoginAction extends ActionSupport{
 	public void setUserpassword(String userpassword) {
 		this.userpassword = userpassword;
 	}
-	
-
-	private LoginOutPut output;
-	private String flag;
-	private File avatar_file;
-	
-	public File getAvatar_file() {
-		return avatar_file;
-	}
-
 	public void setAvatar_file(File avatar_file) {
 		this.avatar_file = avatar_file;
 	}
+	
+	private String retMsg;
+	private LoginOutPut output;
+	private String flag;
 
+	
+	public String getRetMsg(){
+		return retMsg;
+	}
 	public String getFlag() {
 		return flag;
 	}
-
 	public LoginOutPut getOutput() {
 		return output;
-	}
-
-	public void setOutput(LoginOutPut output) {
-		this.output = output;
 	}
 
 	/**
@@ -118,7 +116,7 @@ public class LoginAction extends ActionSupport{
 	
 
 	/**
-	 * 
+	 * 设置用户头像
 	 * @throws IOException 
 	 */
 	public String userIcon() throws IOException{
@@ -137,8 +135,23 @@ public class LoginAction extends ActionSupport{
         
         
 		System.out.println("file_name ="+avatar_file.getName());
-		System.out.println("----------------");
-		return "success";
+		retMsg = "success";
+		return "setIcon_success";
 	}
 	
+	/**
+	 * 获取用户余额信息
+	 */
+	public String getBalance(){
+		retMsg = userServiceImpl.getBalance(userId);
+		return "getbalance_success";
+	}
+
+	/**
+	 * 修改用户信息
+	 */
+	public String changeUserInfo(){
+		retMsg = userServiceImpl.changeUserInfo(userId, loginname, loginType);
+		return "change_success";
+	}
 }

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:task="http://www.springframework.org/schema/task"  
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/context
@@ -17,46 +15,101 @@
   		   http://www.springframework.org/schema/task/spring-task-3.1.xsd">
 
 	<!-- 导入资源文件 -->
-    <context:property-placeholder location="classpath:db.properties"/>
-    <!-- 配置数据源 -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="username" value="${user}"></property>
-        <property name="password" value="${password}"></property>
-        <property name="url" value="${jdbcUrl}"></property>
-        <property name="driverClassName" value="${driverClass}"></property>
-    </bean>
-    <!-- 配置Hibernate -->
-    <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
-        <property name="packagesToScan" >
-            <list>
-                <value></value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="dialect">org.hibernate.dialect.MYSQL5Dialect</prop>
-                <prop key="hibernate.show_sql">false</prop>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-            </props>
-        </property>
-    </bean>
-    <!-- 设定transactionManager -->  
-     <bean id="txManager"  
-        class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
-        <property name="sessionFactory" ref="sessionFactory" />  
-     </bean> 
-     <!--启动spring事务注解功能-->  
-    <tx:annotation-driven transaction-manager="txManager"/> 
-    <context:annotation-config />
-    <context:component-scan base-package="service" />
-    <context:component-scan base-package="dao" />
-    <context:component-scan base-package="action" />
-    <context:component-scan base-package="Task" />
-    
-    <!--定时任务配置--> 
-    <task:annotation-driven scheduler="myScheduler"/>
-    <task:scheduler id="myScheduler" pool-size="5"/> 
+	<!-- <context:property-placeholder location="classpath:db.properties" /> -->
+	<!-- 将多个配置文件读取到容器中，交给Spring管理 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+				<value>classpath:memcached.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置数据源 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="username" value="${user}"></property>
+		<property name="password" value="${password}"></property>
+		<property name="url" value="${jdbcUrl}"></property>
+		<property name="driverClassName" value="${driverClass}"></property>
+	</bean>
+	<!-- 配置Hibernate -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan">
+			<list>
+				<value></value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.MYSQL5Dialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- Memcached 配置 -->
+	<bean id="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder"
+		p:connectionPoolSize="${memcached.connectionPoolSize}" p:failureMode="${memcached.failureMode}">
+		<!-- XMemcachedClientBuilder have two arguments.First is server list,and 
+			second is weights array. -->
+		<constructor-arg>
+			<list>
+				<bean class="java.net.InetSocketAddress">
+					<constructor-arg>
+						<value>${server1.memcached.host}</value>
+					</constructor-arg>
+					<constructor-arg>
+						<value>${server1.memcached.port}</value>
+					</constructor-arg>
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg>
+			<list>
+				<value>${server1.memcached.weight}</value>
+			</list>
+		</constructor-arg>
+		<property name="commandFactory">
+			<bean class="net.rubyeye.xmemcached.command.TextCommandFactory" />
+		</property>
+		<property name="sessionLocator">
+			<bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator" />
+		</property>
+		<property name="transcoder">
+			<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
+		</property>
+	</bean>
+	<!-- Use factory bean to build memcached client -->
+	<bean id="memcachedClient" factory-bean="memcachedClientBuilder"
+		factory-method="build" destroy-method="shutdown" >
+	</bean>
+
+
+	<!-- 设定transactionManager -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!--启动spring事务注解功能 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	<context:annotation-config />
+	<context:component-scan base-package="service" />
+	<context:component-scan base-package="dao" />
+	<context:component-scan base-package="action" />
+	<context:component-scan base-package="Task" />
+	 <context:component-scan base-package="cached" />
+
+	<!--定时任务配置 -->
+	<task:annotation-driven scheduler="myScheduler" />
+	<task:scheduler id="myScheduler" pool-size="5" />
+
+
 </beans>

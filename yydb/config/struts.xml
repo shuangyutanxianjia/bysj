@@ -9,7 +9,9 @@
 	<package name="default" extends="json-default">
 		<!-- 用户基本操作 -->
 		<action name="userlogin" class="action.LoginAction" method="userLogin">
-			<result name="login_success" type="json">user</result>
+			<result name="login_success" type="json">
+				<param name="root">output</param>
+			</result>
 		</action>
 		
 		<!-- 用户注册模块 -->
@@ -31,14 +33,31 @@
 				<param name="root">retMsg</param>
 			</result>
 		</action>
-		
-		
+		<!-- 用户登陆校验 -->
 		<action name="loginchk" class="action.LoginAction" method="loginChk">
-			<result name="loginChk_success" type="json"></result>
+			<result name="loginChk_success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<!-- 用户头像修改 -->
+		<action name="usericon" class="action.LoginAction" method="userIcon">
+			<result name="setIcon_success" type="json">
+				<param name="root">retMsg</param>
+			</result>
 		</action>
 		
-		<action name="usericon" class="action.LoginAction" method="userIcon">
-			<result name="success" type="json"></result>
+		<!-- 用户信息修改 -->
+		<action name="changeuserinfo" class="action.LoginAction" method="changeUserInfo">
+			<result name="change_success" type="json">
+				<param name="root">retMsg</param>
+			</result>
+		</action>
+		
+		<!-- 用户账户余额查询 -->
+		<action name="getbalance" class="action.LoginAction" method="getBalance">
+			<result name="getbalance_success" type="json">
+				<param name="root">retMsg</param>
+			</result>
 		</action>
 		
 		<!-- 商品管理 -->
@@ -71,7 +90,9 @@
 		
 		<!-- 商品购买 -->
 		<action name="goodsShop" class="action.ShopAction" method="shopGoods">
-			<result name="success" type="json"></result>
+			<result name="shop_success" type="json">
+				<param name="root">retMsg</param>
+			</result>
 		</action>
 		
 		<!-- 界面展示 -->

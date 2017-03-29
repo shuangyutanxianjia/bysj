@@ -35,11 +35,6 @@ public class RegistAction extends ActionSupport{
 		return retMsg;
 	}
 	
-	
-	public void setRetMsg(String retMsg) {
-		this.retMsg = retMsg;
-	}
-	
 	/**
 	 * 注册用户名校验
 	 * @return

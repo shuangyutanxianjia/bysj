@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="../css/member/base.css" rel="stylesheet" type="text/css" />
+    <link href="../css/member/member_x.css" rel="stylesheet" type="text/css" />
+  
+    <script language="javascript" type="text/javascript" src="../jquery/JQUERY/jquery.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="../jquery/JQUERY/jquery.cookie.js"></script> 
+	<script src="../jquery/jquery.tmpl.js"></script>
+	</head>
+	<body>
+	<div class="g-purchase-title bor-bot">
+		<span class="gray3">个人资料</span>
+	</div>
+	<div class="z-content">
+		<div class="con">
+			<div class="pic-side">
+
+				<div class="pic-wrap ">
+					<img id = "userIcon1"width="120" height="120" class="h-pic" />
+					<a id="userPhoto" class="h-txt">修改头像</a>
+				</div>
+
+				<div id ="userPhone" class="pic-wrap">
+					<a href="#">
+					<span class="p-icon"><i class="tel"></i></span>
+					<p class="gray9">未绑定</p>
+					</a>
+				</div>
+				<div id ="userMail" class="pic-wrap">
+					<a href="#">
+					<span class="p-icon"><i class="mail"></i></span>
+					<p class="gray9">未绑定</p>
+					</a>
+				</div>
+			</div>
+			<div class="info-side">
+				<ul class="info-list">
+					<div class="info-sign"><i></i>温馨提示：1元云购不会以任何形式公开您的个人隐私！</div>
+					<li>
+						<span class="label">昵　　称：</span>
+						<input name="txtName" type="text" id="txtName" class="inp-long" maxlength="20" />
+						<em class="orange">*</em>
+						<span class="orange"></span>
+					</li>
+					<li>
+						<a id="btnSave" href="javascript:;" class="save-btn">保存</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</body>
+	<script>
+	window.userId ="" ;
+	$(function(){
+	//加载信息 从cookie中获取用户id 用户昵称 用户头像路径 获取用户手机信息 邮箱信息
+			var iconUrl = "../../upload/" + $.cookie("userIcon")+"?="+GetRandomNum();
+			var userName = $.cookie("username");
+			window.userId = $.cookie("userId");
+			var userPhone = $.cookie("userphone");
+			var userMail= $.cookie("userMail");
+			if(userPhone != "null"){		//	绑定手机
+				$("#userPhone").html('<a href="#"><span class="p-icon"><i class="tel"></i></span><p class="gray9">已绑定</p><p class="gray6">'+userPhone+'</p></a>');
+			}
+			
+			if(userMail != "null"){			//  绑定邮箱
+				$("#userMail").html('<a href="#"><span class="p-icon"><i class="tel"></i></span><p class="gray9">已绑定</p><p class="gray6">'+userMail+'</p></a>')
+			}
+			
+			$("#userIcon1").attr("src",iconUrl);
+			$("#userPhoto").click(function(){
+			$("#userphoto").click();
+		})
+		
+	})
+	$("#btnSave").click(function(){
+		var userName = $("#txtName").val();
+		if(userName == "null" ||userName == ""){
+			alert("请修改后进行操作");
+			return;
+		}
+		
+		var param = {  //设置修改入参
+			userId : userId,
+			loginname : userName,
+			loginType : "1"
+		}
+		//进行昵称修改
+				$.ajax({
+           				type:"POST",
+           				url:"../../changeuserinfo.action",
+           				data:param,
+           				dataType:"json",
+           				success:function(json){
+           				if(json == "change_success"){
+           					alert("用户昵称修改成功");
+           				}else{
+           					alert(json);
+           				}
+           				},
+           				error:function(json){
+           				alert("failed");
+           			}
+           		});
+	})
+	//获取随机数
+	function GetRandomNum()
+	{   
+	var Range = 99;   
+	var Rand = Math.random();   
+	return(1 + Math.round(Rand * Range));   
+	}     
+	  
+	</script>
+</html>

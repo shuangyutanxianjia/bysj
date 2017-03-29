@@ -11,10 +11,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import cached.GoodsBasisCache;
+
+import dao.GoodsDAO;
 import dao.IssueDAO;
 import dao.LottleDAO;
 import dao.LuckyDAO;
 import dao.ShopDAO;
+import domain.Goods;
 import domain.Issue;
 import domain.Lottle;
 import domain.Lucky;
@@ -29,8 +33,11 @@ public class OpenLottleTask {
 	LuckyDAO luckDAO;
 	@Autowired
 	LottleDAO lottleDAO;
+	@Autowired
+	GoodsDAO goodsDAO;
+	@Autowired
+	GoodsBasisCache goodsBasisCache;
 	
-
 	@Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次    
 	@Transactional
 	public void openLottle(){
@@ -77,6 +84,25 @@ public class OpenLottleTask {
 				issue.setIsdraw(2);
 				issueDAO.save(issue);
 			}
+		}
+	}
+	
+	@Scheduled(cron="0 0 12 * * ?")   //每天12点触发
+	//@Scheduled(cron="0/5 * *  * * ? ") //每6小时执行一次缓存加载
+	@Transactional
+	public void InitCached(){
+		//加载商品缓存
+		Date  date = new Date();
+		System.out.println(date+"--------------开始商品缓存加载");
+		List<Goods> goodList = new ArrayList<Goods>();//获取所有进行中的stage
+		goodList = goodsDAO.findAll();
+		if(!goodList.isEmpty()){
+			for (Goods goods : goodList) {
+				goodsBasisCache.set(goods);
+			}
+			System.out.println("----------------产品缓存加载成功");
+		}else{
+			System.out.println("----------------商品查询出错，缓存加载失败！");
 		}
 	}
 }

@@ -95,10 +95,12 @@
            			data:param,
            			dataType:"json",
            			success:function(json){
-           				if(json.output.flag){          					
-           					$.cookie("username", json.output.users[0].userName, {path: '/'}); 
-           					$.cookie("userIcon",json.output.users[0].userIcon,{path:'/'});
-           					$.cookie("userId",json.output.users[0].userId,{path:'/'});
+           				if(json.flag){          					
+           					$.cookie("username", json.users[0].userName, {path: '/'}); 
+           					$.cookie("userIcon",json.users[0].userIcon,{path:'/'});
+           					$.cookie("userId",json.users[0].userId,{path:'/'});
+           					$.cookie("userphone",json.users[0].userPhone,{path:'/'});
+           					$.cookie("userMail",json.users[0].ext1,{path:'/'});
 							window.location.href="./newindex.html";
 						}else{
 							alert("密码有误？");

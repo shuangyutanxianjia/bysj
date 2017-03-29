@@ -18,51 +18,32 @@ public class ShopAction extends ActionSupport{
 	GoodServiceImpl goodService;
 	@Resource
 	ShopServiceImpl shopService;
-	
+	//入参
 	private String shopnum;
 	private String userId;
 	private String goodIssue;
-	private String goodsId;
-	private GoodsInfoOutput goodoutput;
-
-	public String getGoodIssue() {
-		return goodIssue;
-	}
-
+	private String goodsId;	
 	public void setGoodIssue(String goodIssue) {
 		this.goodIssue = goodIssue;
 	}
-
-	public String getGoodsId() {
-		return goodsId;
-	}
-
 	public void setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
-	}
-
-	public GoodsInfoOutput getGoodoutput() {
-		return goodoutput;
-	}
-
-	public void setGoodoutput(GoodsInfoOutput goodoutput) {
-		this.goodoutput = goodoutput;
-	}
-	
-	public String getShopnum() {
-		return shopnum;
 	}
 
 	public void setShopnum(String shopnum) {
 		this.shopnum = shopnum;
 	}
-
-	public String getUserId() {
-		return userId;
-	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	//出参
+	private GoodsInfoOutput goodoutput;	
+	private String retMsg;
+	public GoodsInfoOutput getGoodoutput() {
+		return goodoutput;
+	}
+	public String getRetMsg() {
+		return retMsg;
 	}
 	
 	/**
@@ -80,7 +61,7 @@ public class ShopAction extends ActionSupport{
 	 * @throws ParseException 
 	 */
 	public String shopGoods() throws ParseException{
-		shopService.shopping(goodsId, goodIssue, shopnum, userId);
-		return "success";
+		retMsg = shopService.shopping(goodsId, goodIssue, shopnum, userId);
+		return "shop_success";
 	}
 }

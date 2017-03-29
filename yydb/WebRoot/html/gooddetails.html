@@ -14,8 +14,14 @@
                </script>
              <![endif]-->
 		<link rel="stylesheet" type="text/css" href="css/details/GoodsDetail.css" />
+		<link rel="stylesheet" type="text/css" href="css/Details.css" />
+		<link rel="stylesheet" href="css/semantic.css" type="text/css" />
+		<!--<link rel="stylesheet" href="css/zyComment.css" type="text/css" />-->
+
 		<script language="javascript" type="text/javascript" src="jquery/JQUERY/jquery.js"></script>
 		<script language="javascript" type="text/javascript" src="common/user.js"></script>
+		<script language="javascript" type="text/javascript" src="js/zyComment.js"></script>
+		
 		
 		<style>
 			.slidesjs-navigation {
@@ -443,13 +449,14 @@
 		<!--中间浮动导航-->
 		<div id="div_menu" class="ng-goods-option">
 			<ul id="ul_menu" class="options-menu">
-				<li class="current"><span>商品详情</span><i class="bor"></i></li>
+				<li ><span>商品详情</span><i class="bor"></i></li>
+				<li class="current"><span>用户评论</span><i class="bor"></i></li>
 			</ul>
 			<a id="btnAdd2Card" href="javascript:;" class="op-addcar" style="display:none;">加入购物车<i class="a-icon transparent-png"></i></a>
 		</div>
 
 		<!--商品信息-->
-		<div id="div_desc" class="ng-product-content">
+		<div id="div_desc" class="ng-product-content" style="display: none;">
 			<div class="product-con">
 
 				<div id = "gooddetail" style="width:800px; margin:0px auto; padding:0px; text-align:center;">
@@ -473,7 +480,14 @@
 				</ul>
 			</div>
 		</div>
-
+		
+		<!-- 用户评论区 -->
+		<div id="div_postlist" class="ng-share-goods" style="display: block;">
+                <!-- 用户评论展示 -->
+               <div id="commentList" class="comment-main clrfix" style=""></div>
+                <!-- 评论分页区 -->
+                <div class="g-pagination"></div>
+            </div>
 		<!--底部-->
 		<div class="g-footer">
 
@@ -541,8 +555,30 @@
 		//	获取商品ID	
 		window.good = [];
 		window.issue = [];
+		var agoComment = [
+				  {"id":1,"userName":"游客1","time":"2014-04-04","sortID":0,"content":"第一条评论"},
+				  {"id":2,"userName":"游客2","time":"2014-04-04","sortID":0,"content":"第二条评论"},
+				  {"id":3,"userName":"站长","time":"2014-04-04","sortID":1,"content":"第一条评论的回复"},
+				  {"id":4,"userName":"站长","time":"2014-04-04","sortID":2,"content":"第二条评论的回复"},
+				  {"id":5,"userName":"游客3","time":"2014-04-04","sortID":0,"content":"第三条评论"},
+				  {"id":6,"userName":"游客2","time":"2014-04-04","sortID":4,"content":"第二条评论的回复的回复"},
+				  ];
+		
+		
 		$(function() {
 
+
+			$("#commentList").zyComment({
+			"width":"355",
+			"height":"33",
+			"agoComment":agoComment,
+			"callback":function(comment){
+				console.info("填写内容返回值：");
+				console.info(comment);
+				// 添加新的评论
+			$("#commentList").zyComment("setCommentAfter",{"id":123, "name":"name", "content":"content", "time":"2014-04-14"});
+	}
+});
 			var s = window.location.href;
 
 			var goodId = GetArgsFromHref(s, "goodId");
@@ -677,8 +713,14 @@
 				data: parameter,
 				dataType: "json",
 				success: function(json) {
-					alert("购买成功");
-					location.reload();
+					if(json == "sold_success"){
+						alert("商品购买成功");
+						location.reload();
+					}else if(json == "noenough_balance"){
+						alert("用户余额不足，请充值后重新操作");
+					}else{
+						alert(json);
+					}					
 				},
 				error: function(json) {
 					alert("");

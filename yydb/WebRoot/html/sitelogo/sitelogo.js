@@ -159,7 +159,7 @@
       if (!this.$avatarSrc.val() && !this.$avatarInput.val()) {
         return false;
       }
-
+			
       if (this.support.formData) {
         this.ajaxUpload();
         return false;
@@ -263,23 +263,10 @@
     },
 
     submitDone: function (data) {
-      if ($.isPlainObject(data)) {
-        if (data.result) {
-          this.url = data.result;
-          if (this.support.datauri || this.uploaded) {
-            this.uploaded = false;
-            this.cropDone();
-          } else {
-            this.uploaded = true;
-            this.$avatarSrc.val(this.url);
-            this.startCropper();
-          }
-          this.$avatarInput.val('');
-        } else if (data.message) {
-          this.alert(data.message);
-        }
+      if (data == "success") {
+        location.href = 'memberModify.html';
       } else {
-        this.alert('Failed to response');
+        this.alert("头像上传失败");
       }
     },
 
