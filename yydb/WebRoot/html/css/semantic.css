@@ -6346,7 +6346,7 @@ i.massive.basic.icon {
 
 .ui.teal.buttons .button,
 .ui.teal.button {
-  background-color: #00B5AD;
+  background-color: #FF6600;
   color: #FFFFFF;
 }
 
@@ -6354,7 +6354,7 @@ i.massive.basic.icon {
 .ui.teal.button:hover,
 .ui.teal.buttons .active.button,
 .ui.teal.button.active {
-  background-color: #009A93;
+  background-color: #ffac4a;
   color: #FFFFFF;
 }
 

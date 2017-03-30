@@ -18,7 +18,7 @@
 		<link rel="stylesheet" href="css/semantic.css" type="text/css" />
 		<!--<link rel="stylesheet" href="css/zyComment.css" type="text/css" />-->
 
-		<script language="javascript" type="text/javascript" src="jquery/JQUERY/jquery.js"></script>
+		<script language="javascript" type="text/javascript" src="js/jquery-1.8.0.js"></script>
 		<script language="javascript" type="text/javascript" src="common/user.js"></script>
 		<script language="javascript" type="text/javascript" src="js/zyComment.js"></script>
 		
@@ -449,8 +449,8 @@
 		<!--中间浮动导航-->
 		<div id="div_menu" class="ng-goods-option">
 			<ul id="ul_menu" class="options-menu">
-				<li ><span>商品详情</span><i class="bor"></i></li>
-				<li class="current"><span>用户评论</span><i class="bor"></i></li>
+				<li id = "detail_info"><span>商品详情</span><i class="bor"></i></li>
+				<li id = "comment_info" class="current"><span>用户评论</span><i class="bor"></i></li>
 			</ul>
 			<a id="btnAdd2Card" href="javascript:;" class="op-addcar" style="display:none;">加入购物车<i class="a-icon transparent-png"></i></a>
 		</div>
@@ -512,13 +512,13 @@
 				</div>
 				<div class="cartLogin-con clrfix" style="display: block;">
 					<ul>
-						<li>
+						<li >
 							<p class="z-zhangh">
 								<label class="z-clump-icon"></label>
 								<input type="text" value="" placeholder="手机号/邮箱" id="username" />
 							</p>
 						</li>
-						<li>
+						<li >
 							<p class="z-mim">
 								<label class="z-clump-icon"></label>
 								<input type="password" value="" placeholder="密码" id="password" />
@@ -555,36 +555,17 @@
 		//	获取商品ID	
 		window.good = [];
 		window.issue = [];
-		var agoComment = [
-				  {"id":1,"userName":"游客1","time":"2014-04-04","sortID":0,"content":"第一条评论"},
-				  {"id":2,"userName":"游客2","time":"2014-04-04","sortID":0,"content":"第二条评论"},
-				  {"id":3,"userName":"站长","time":"2014-04-04","sortID":1,"content":"第一条评论的回复"},
-				  {"id":4,"userName":"站长","time":"2014-04-04","sortID":2,"content":"第二条评论的回复"},
-				  {"id":5,"userName":"游客3","time":"2014-04-04","sortID":0,"content":"第三条评论"},
-				  {"id":6,"userName":"游客2","time":"2014-04-04","sortID":4,"content":"第二条评论的回复的回复"},
-				  ];
 		
 		
 		$(function() {
-
-
-			$("#commentList").zyComment({
-			"width":"355",
-			"height":"33",
-			"agoComment":agoComment,
-			"callback":function(comment){
-				console.info("填写内容返回值：");
-				console.info(comment);
-				// 添加新的评论
-			$("#commentList").zyComment("setCommentAfter",{"id":123, "name":"name", "content":"content", "time":"2014-04-14"});
-	}
-});
 			var s = window.location.href;
 
 			var goodId = GetArgsFromHref(s, "goodId");
 			var goodIssue = GetArgsFromHref(s, "goodIssue");
 			var html = [];
 
+			
+			
 			//查询商品信息
 			$.ajax({
 				type: "POST",
@@ -640,6 +621,44 @@
 				},
 				error: function(json) {
 					alert("商品信息查询失败");
+					return false;
+				}
+			});
+			
+			//查询用户评论
+			$.ajax({
+				type: "POST",
+				url: "../getcomment.action",
+				data: {goodsId: goodId},
+				dataType: "json",
+				success: function(json) {
+					//用户评论
+					var agoComment = json;
+					$("#commentList").zyComment({
+						"width":"355",
+						"height":"33",
+						"agoComment":agoComment,
+						"callback":function(comment){
+						//调用评论后台
+						$.ajax({
+							type: "POST",
+							url: "../reflashcomment.action",
+							data: comment,
+							dataType: "json",
+							success: function(json1) {
+								$("#commentList").zyComment("setCommentAfter",json1);		
+							},
+						error: function(json1) {
+							alert("");
+							return false;
+						}
+					});			
+						
+				}
+			});		
+				},
+				error: function(json) {
+					alert("");
 					return false;
 				}
 			});
@@ -787,7 +806,20 @@
 				$(".input-num").val(num);
 			}
 		}
-		//倒计时设置
+		
+		//下方点击
+		$("#ul_menu li").click(function(){
+			$(this).addClass("current");
+			$(this).siblings().removeClass("current");
+			var id = $(this).attr('id');
+			if(id == "detail_info"){
+				$("#div_desc").css('display','block');
+				$("#div_postlist").css('display','none');
+			}else{
+				$("#div_desc").css('display','none');
+				$("#div_postlist").css('display','block');
+			}
+		})
 		
 		
 	</script>

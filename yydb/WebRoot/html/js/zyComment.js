@@ -21,8 +21,6 @@
 					"height":"33",
 					"agoComment":[],  // 以往评论内容
 					"callback":function(comment){
-						console.info("返回评论数据");
-						console.info(comment);
 					}
 			};
 			
@@ -53,18 +51,18 @@
 					}
 					
 					var item = '';
-					item += '<div id="comment'+v.id+'" class="comment">';
+					item += '<div id="comment'+v.commentId+'" class="comment">';
 					item += '	<a class="avatar">';
-					item += '		<img src="#">';
+					item += '		<img src=../upload/'+v.userIcon+'>';
 					item += '	</a>';
 					item += '	<div class="content '+topStyle+'">';
 					item += '		<a class="author"> '+v.userName+' </a>';
 					item += '		<div class="metadata">';
-					item += '			<span class="date"> '+v.time+' </span>';
+					item += '			<span class="date"> '+v.commentDate+' </span>';
 					item += '		</div>';
 					item += '		<div class="text"> '+v.content+' </div>';
 					item += '		<div class="actions">';
-					item += '			<a class="reply" href="javascript:void(0)" selfID="'+v.id+'" >回复</a>';
+					item += '			<a class="reply" href="javascript:void(0)" selfID="'+v.commentId+'" >回复</a>';
 					item += '		</div>';
 					item += '	</div>';
 					item += '</div>';
@@ -105,7 +103,7 @@
 				boxHtml += '	<div class="ui large form ">';
 				boxHtml += '		<div class="contentField field" >';
 				boxHtml += '			<textarea id="commentContent"></textarea>';
-				boxHtml += '			<label class="commentContentLabel" for="commentContent"></label>';
+				boxHtml += '			<label class="commentContentLabel" for="commentContent">Content</label>';
 				boxHtml += '		</div>';
 				boxHtml += '		<div id="submitComment" class="ui button teal submit labeled icon">';
 				boxHtml += '			<i class="icon edit"></i> 提交评论';
@@ -142,8 +140,7 @@
 			 */
 			this.replyClickEvent = function(){
 				// 绑定回复按钮点击事件
-				
-				$(self).find(".actions .reply").on("click","null", function(){
+				$(self).find(".actions .reply").live("click", function(){
 					// 设置当前回复的评论的id
 					fCode = $(this).attr("selfid");
 					
@@ -160,14 +157,25 @@
 					self.addReplyCommentFrom($(this).attr("selfID"));
 					
 					// 绑定提交事件
-					$("#publicComment").off("click");
-					$("#publicComment").on("click","null",function(){
-						var result = {
-								"name":$("#userName").val(),
-								"email":$("#userEmail").val(),
+					$("#publicComment").die("click");
+					$("#publicComment").live("click",function(){
+							//判断用户是否登录
+						isLogin(function(data){
+						if(data=="false"){
+							alert("请先登录或注册");
+							return;
+						}else{
+							//获取用户评论信息
+							alert($("#commentContent").val());
+							var result = {
+								"goodsId":good.goodId,
+								"userId":$.cookie("userId"), 
+								"sortId":fCode,
 								"content":$("#commentContent").val()
-						};
-						para.callback(result);
+							};
+							para.callback(result);
+						}						
+					});
 					});
 				});
 				
@@ -179,8 +187,8 @@
 			 * 返回: 无
 			 */
 			this.cancelReplyClickEvent = function(){
-				$(self).find(".actions .cancel").off("click");
-				$(self).find(".actions .cancel").on("click","null",function(){
+				$(self).find(".actions .cancel").die("click");
+				$(self).find(".actions .cancel").live("click", function(){
 					// 1.移除之前的取消回复按钮
 					$(self).find(".cancel").remove();
 					
@@ -199,13 +207,13 @@
 			 */
 			this.addFormEvent = function(){
 				// 先解除绑定
-				$("textarea,input").off("focus");
-				$("textarea,input").off("blur");
+				$("textarea,input").die("focus");
+				$("textarea,input").die("blur");
 				// 绑定回复框效果
-				$("textarea,input").on("focus","null",function(){
+				$("textarea,input").live("focus",function(){
 					// 移除 失去焦点class样式，添加获取焦点样式
 					$(this).next("label").removeClass("blur-foucs").addClass("foucs"); 
-				}).on("blur","null",function(){
+				}).live("blur",function(){
 					// 如果文本框没有值
 					if($(this).val()==''){ 
 						// 移除获取焦点样式添加原生样式
@@ -220,14 +228,25 @@
 				});
 				
 				// 绑定提交事件
-				$("#submitComment").off("click");
-				$("#submitComment").on("click","null",function(){
-					var result = {
-							"name":$("#userName").val(),
-							"email":$("#userEmail").val(),
-							"content":$("#commentContent").val()
-					};
-					para.callback(result);
+				$("#submitComment").die("click");
+				$("#submitComment").live("click",function(){
+						//判断用户是否登录
+						isLogin(function(data){
+						if(data=="false"){
+							alert("请先登录或注册");
+							return;
+						}else{
+							//获取用户评论信息
+							alert($("#commentContent").val());
+							var result = {
+								"goodsId":good.goodId,
+								"userId":$.cookie("userId"), 
+								"sortId":0,
+								"content":$("#commentContent").val()
+							};
+							para.callback(result);
+						}
+						});
 				});
 			};
 			
@@ -250,16 +269,6 @@
 				var boxHtml = '';
 				boxHtml += '<form id="replyBox" class="ui reply form">';
 				boxHtml += '	<div class="ui  form ">';
-				//boxHtml += '		<div class="two fields">'
-				boxHtml += '			<div class="field" >';
-				boxHtml += '				<input type="text" id="userName" />';
-				boxHtml += '				<label class="userNameLabel" for="userName">Your Name</label>';
-				boxHtml += '			</div>';
-				boxHtml += '			<div class="field" >';
-				boxHtml += '				<input type="text" id="userEmail" />';
-				boxHtml += '				<label class="userEmailLabel" for="userName">E-mail</label>';
-				boxHtml += '			</div>';
-				//boxHtml += '		</div>';
 				boxHtml += '		<div class="contentField field" >';
 				boxHtml += '			<textarea id="commentContent"></textarea>';
 				boxHtml += '			<label class="commentContentLabel" for="commentContent">Content</label>';
@@ -279,16 +288,6 @@
 				var boxHtml = '';
 				boxHtml += '<form id="replyBoxAri" class="ui reply form">';
 				boxHtml += '	<div class="ui large form ">';
-				boxHtml += '		<div class="two fields">';
-				boxHtml += '			<div class="field" >';
-				boxHtml += '				<input type="text" id="userName" />';
-				boxHtml += '				<label class="userNameLabel" for="userName">Your Name</label>';
-				boxHtml += '			</div>';
-				boxHtml += '			<div class="field" >';
-				boxHtml += '				<input type="text" id="userEmail" />';
-				boxHtml += '				<label class="userEmailLabel" for="userName">E-mail</label>';
-				boxHtml += '			</div>';
-				boxHtml += '		</div>';
 				boxHtml += '		<div class="contentField field" >';
 				boxHtml += '			<textarea id="commentContent"></textarea>';
 				boxHtml += '			<label class="commentContentLabel" for="commentContent">Content</label>';
@@ -322,23 +321,26 @@
 			// 添加新评论的内容
 			this.addNewComment = function(param){
 				var topStyle = "";
+				if(param.sortID == 0){
+					fCode = 0; //最新评论为父评论
+				}
 				if(parseInt(fCode)!=0){
 					topStyle = "topStyle";
 				}
 				
 				var item = '';
-				item += '<div id="comment'+param.id+'" class="comment">';
+				item += '<div id="comment'+param.commentId+'" class="comment">';
 				item += '	<a class="avatar">';
-				item += '		<img src="#">';
+				item += '		<img src=../upload/'+param.userIcon+'>';
 				item += '	</a>';
 				item += '	<div class="content '+topStyle+'">';
-				item += '		<a class="author"> '+param.name+' </a>';
+				item += '		<a class="author"> '+param.userName+' </a>';
 				item += '		<div class="metadata">';
-				item += '			<span class="date"> '+param.time+' </span>';
+				item += '			<span class="date"> '+param.commentDate+' </span>';
 				item += '		</div>';
 				item += '		<div class="text"> '+param.content+' </div>';
 				item += '		<div class="actions">';
-				item += '			<a class="reply" href="javascript:void(0)" selfID="'+param.id+'" >回复</a>';
+				item += '			<a class="reply" href="javascript:void(0)" selfID="'+param.commentId+'">回复</a>';
 				item += '		</div>';
 				item += '	</div>';
 				item += '</div>';

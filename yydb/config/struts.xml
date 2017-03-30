@@ -109,7 +109,22 @@
 		<!-- 主页获取已经揭晓 -->
 		<action name="getlottle" class="action.LottleAction" method="getLottle">
 			<result name="success" type="json"></result>
-		</action>			
+		</action>	
+		
+		<!-- 用户评论模块实现 -->
+		<!-- 获取对应商品的所有评论（不支持分页） -->
+		<action name="getcomment" class="action.CommentAction" method="getComment">
+			<result name="getcomment_success" type="json">
+				<param name="root">output</param>
+			</result>
+		</action>
+		<!-- 商品评论更新 -->
+		<action name="reflashcomment" class="action.CommentAction" method="reflashComment">
+			<result name="reflash_success" type="json">
+				<param name="root">comoutput</param>
+			</result>
+		</action>
+		
 	</package>
 
 
